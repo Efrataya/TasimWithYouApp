@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/menu2"
+    android:onClick="tosecedF"
+    android:orientation="vertical"
+    tools:context=".Fragmentmenu">
+
+    <Button
+        android:id="@+id/fragmenuto1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/menu"
+        android:drawableRight="@mipmap/mune1"
+        android:onClick="toOneF"
+        android:text="הנחיות מקדימות "
+        android:textColor="@color/black"
+        android:textSize="34sp" />
+
+    <Button
+        android:id="@+id/fragmenuto2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/menu2"
+        android:onClick="toSecF"
+        android:text="הפעלת התראות "
+        android:textSize="34sp"
+        android:drawableRight="@mipmap/mune2"/>
+
+
+    <Button
+        android:id="@+id/fragmenuto3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="מידע על מקום הנחיתה"
+        android:textSize="34sp"
+        android:drawableRight="@mipmap/mune3"/>
+
+
+    <Button
+        android:id="@+id/fragmenuto4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/menu2"
+        android:onClick="toThrF"
+        android:text="ניווט בשדה התעופה"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="34sp"
+        android:drawableRight="@mipmap/mune4"/>
+
+    <Button
+        android:id="@+id/fragmenuto5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="תהליך עליה למטוס"
+        android:textSize="34sp"
+        android:drawableRight="@mipmap/mune5"/>
+
+</LinearLayout>

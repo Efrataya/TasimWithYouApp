@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraf"
+    app:startDestination="@id/fragmentmenu">
+
+    <fragment
+        android:id="@+id/fragmentmenu"
+        android:name="com.example.tasimwithyouapp.Fragmentmenu"
+        android:label="fragment_fragmentmenu"
+        tools:layout="@layout/fragment_fragmentmenu" >
+        <action
+            android:id="@+id/action_fragmentmenu_to_fragmentmenu3"
+            app:destination="@id/fragmentmenuto3" />
+        <action
+            android:id="@+id/action_fragmentmenu_to_fragmentmenu1"
+            app:destination="@id/fragmentmenu1" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentmenu1"
+        android:name="com.example.tasimwithyouapp.Fragmentmenu1"
+        android:label="fragment_fragmentmenu1"
+        tools:layout="@layout/fragment_fragmentmenu1" />
+    <fragment
+        android:id="@+id/fragmentmenuto3"
+        android:name="com.example.tasimwithyouapp.Fragmentmenu3"
+        android:label="fragment_fragmentmenu2"
+        tools:layout="@layout/fragment_fragmentmenu3" />
+</navigation>
