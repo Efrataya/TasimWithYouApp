@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/img"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30sp"
+        android:layoutDirection="rtl"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/entryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40sp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="כניסה"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="34sp" />
+
+        <TextView
+            android:id="@+id/emailText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:text="אימייל"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/emailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:ems="10"
+            android:gravity="right"
+            android:hint="yourName@Example.com"
+            android:inputType="textEmailAddress"
+            android:textColorHint="#9F9E9E"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/passwordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|right"
+            android:text="סיסמא"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/passwordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:ems="10"
+            android:gravity="right"
+            android:hint="הסיסמא שלך"
+            android:textColorHint="#9F9E9E"
+            android:textSize="14sp"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/signInButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45sp"
+            android:layout_weight="0.35"
+            android:background="@drawable/my_button"
+            android:text="כניסה"
+            android:onClick="signFunc"
+            android:textColor="#FFFCFC"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/registerRef"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_weight="0.5"
+            android:gravity="bottom|right"
+            android:text="לא התחברתם מעולם?"
+            android:textColor="#8C8A8A"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/linkToRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:layout_weight="0.5"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:text="הרשמו כאן!"
+            android:textColor="#3F51B5"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

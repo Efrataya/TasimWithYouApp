@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img"
+    android:orientation="vertical"
+    tools:context=".FragmentRegister" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30sp"
+        android:layoutDirection="rtl"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/entryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="רישום משתמש חדש"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|right"
+            android:textSize="20sp"
+            android:text="שם" />
+
+        <EditText
+            android:id="@+id/nameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColorHint="#9F9E9E"
+            android:textSize="14sp"
+            android:gravity="right"
+            android:hint="שם פרטי ושם משפחה" />
+
+        <TextView
+            android:id="@+id/addressText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|right"
+            android:textSize="20sp"
+            android:text="כתובת מגורים" />
+
+        <EditText
+            android:id="@+id/addressInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColorHint="#9F9E9E"
+            android:textSize="14sp"
+            android:gravity="right"
+            android:hint="הרחוב שלך, מספר הבית ומספר הדירה" />
+
+        <TextView
+            android:id="@+id/emailText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|right"
+            android:textSize="20sp"
+            android:text="אימייל"
+            />
+
+        <EditText
+            android:id="@+id/emailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:textColorHint="#9F9E9E"
+            android:textSize="14sp"
+            android:gravity="right"
+            android:hint="yourName@Example.com"/>
+
+        <TextView
+            android:id="@+id/passwordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|right"
+            android:textSize="20sp"
+            android:text="סיסמא"
+            />
+
+        <EditText
+            android:id="@+id/passwordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="right"
+            android:hint="סיסמא באנגלית באורך 10 תווים ממספרים ואותיות"
+            android:inputType="textPassword"
+            android:textColorHint="#9F9E9E"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/flightText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|right"
+            android:textSize="20sp"
+            android:text="מספר טיסה" />
+
+        <EditText
+            android:id="@+id/flightInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:textColorHint="#9F9E9E"
+            android:textSize="14sp"
+            android:gravity="right"
+            android:hint="מספר הטיסה מופיע בכרטיס הטיסה שלך"/>
+
+        <Button
+            android:id="@+id/signInButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15sp"
+            android:layout_weight="1"
+            android:background="@drawable/my_button"
+            android:text="הרשמה"
+            android:onClick="regFunc"
+            android:textColor="#FFFCFC"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+</LinearLayout>

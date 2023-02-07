@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraf"
-    app:startDestination="@id/fragmentmenu">
+    app:startDestination="@id/fragmentRegister">
 
     <fragment
         android:id="@+id/fragmentmenu"
@@ -27,4 +27,17 @@
         android:name="com.example.tasimwithyouapp.Fragmentmenu3"
         android:label="fragment_fragmentmenu2"
         tools:layout="@layout/fragment_fragmentmenu3" />
+    <fragment
+        android:id="@+id/fragmentRegister"
+        android:name="com.example.tasimwithyouapp.FragmentRegister"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_fragmentRegister_to_fragmentmenu"
+            app:destination="@id/fragmentmenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSignInOrRegister"
+        android:name="com.example.tasimwithyouapp.FragmentSignInOrRegister"
+        android:label="FragmentSignInOrRegister" />
 </navigation>

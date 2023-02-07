@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:textAlignment="center"
+
+    android:layoutDirection="rtl"
+
+    tools:context=".enter">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="אנא הכנס את שם המשתמש והסיסמא שקיבלת מחברת הטיסה שלך"
+        android:textColor="#040303"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/uzerNameFromCompany"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="35sp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="שם משתמש"
+        android:includeFontPadding="true"
+        android:inputType="textPassword"
+        android:textAlignment="textEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <EditText
+        android:id="@+id/passwordFromCompany"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="35sp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="סיסמא"
+        android:includeFontPadding="true"
+        android:inputType="numberPassword"
+        android:textAlignment="textEnd" />
+
+    <Button
+        android:id="@+id/entryToApp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20sp"
+        android:layout_weight="1"
+        android:text="כניסה"
+        android:textSize="20sp" />
+
+</LinearLayout>
