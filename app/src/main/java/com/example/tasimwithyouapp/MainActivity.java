@@ -94,8 +94,11 @@ public class MainActivity extends AppCompatActivity {
         EditText passText = findViewById(R.id.passwordInput);
         String password = passText.getText().toString();
         EditText flightText = findViewById(R.id.flightInput);
-        String flight = passText.getText().toString();
-        User user= new User(id,name,address,email,password,flight);
+        String flightNumber = flightText.getText().toString();
+        String flightDate="29/03/2023";
+        String flightHour="14:30";
+        String flightDestination="Miami Beach";
+        User user= new User(id,name,address,email,password,flightNumber,flightDate,flightHour,flightDestination);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users").child(user.id);
         myRef.setValue(user);
