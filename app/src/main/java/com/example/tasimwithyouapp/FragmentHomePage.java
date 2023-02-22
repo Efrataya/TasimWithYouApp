@@ -3,20 +3,17 @@ package com.example.tasimwithyouapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentSignInOrRegister#newInstance} factory method to
+ * Use the {@link FragmentHomePage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentSignInOrRegister extends Fragment {
+public class FragmentHomePage extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +24,7 @@ public class FragmentSignInOrRegister extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentSignInOrRegister() {
+    public FragmentHomePage() {
         // Required empty public constructor
     }
 
@@ -37,11 +34,11 @@ public class FragmentSignInOrRegister extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentSignInOrRegister.
+     * @return A new instance of fragment FragmentHomePage.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentSignInOrRegister newInstance(String param1, String param2) {
-        FragmentSignInOrRegister fragment = new FragmentSignInOrRegister();
+    public static FragmentHomePage newInstance(String param1, String param2) {
+        FragmentHomePage fragment = new FragmentHomePage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,24 +59,6 @@ public class FragmentSignInOrRegister extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_sign_in_or_register, container, false);
-        Button button1=view.findViewById(R.id.signInButton);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentmenu);
-            }
-        });
-        TextView tv=view.findViewById(R.id.linkToRegister);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentRegister);
-            }
-        });
-
-        return view;
+        return inflater.inflate(R.layout.fragment_home_page, container, false);
     }
-
-
 }
