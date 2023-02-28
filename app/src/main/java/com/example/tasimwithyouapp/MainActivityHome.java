@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class MainActivity2 extends AppCompatActivity {
+public class MainActivityHome extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class MainActivity2 extends AppCompatActivity {
                         wait(2000);
                         Intent intent;
                         intent = new Intent
-                                (MainActivity2.this,MainActivity.class);
+                                (MainActivityHome.this,MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
