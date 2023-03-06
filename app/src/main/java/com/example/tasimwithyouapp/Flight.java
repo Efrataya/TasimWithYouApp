@@ -3,15 +3,20 @@ package com.example.tasimwithyouapp;
 public class Flight {
 
     private String id;
+    private String userId;
     private String flightNumber;
-    private long flightDate;
+    private String flightDate;
     private String flightDestination;
+    private String terminal;
 
 
-    public Flight(String flightNumber, long flightDate, String flightDestination) {
+    public Flight(String id, String userId, String flightNumber, String flightDate, String flightDestination, String terminal) {
+        this.id = id;
+        this.userId = userId;
         this.flightNumber = flightNumber;
         this.flightDate = flightDate;
         this.flightDestination = flightDestination;
+        this.terminal = terminal;
     }
 
     public Flight() {}
@@ -24,6 +29,13 @@ public class Flight {
         return id;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getFlightNumber() {
         return flightNumber;
@@ -34,11 +46,11 @@ public class Flight {
     }
 
 
-    public long getFlightDate() {
+    public String getFlightDate() {
         return flightDate;
     }
 
-    public void setFlightDate(long flightDate) {
+    public void setFlightDate(String flightDate) {
         this.flightDate = flightDate;
     }
 
@@ -46,7 +58,16 @@ public class Flight {
         return flightDestination;
     }
 
+    public String getTerminal() {
+        return terminal;
+    }
+
+    public void setTerminal(String terminal) {
+        this.terminal = terminal;
+    }
+
     public void setFlightDestination(String flightDestination) {
         this.flightDestination = flightDestination;
+
     }
 }

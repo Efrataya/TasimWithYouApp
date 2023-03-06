@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraf"
-    app:startDestination="@id/fragmentSignInOrRegister">
+    app:startDestination="@id/fragmentRegister">
 
     <fragment
         android:id="@+id/fragmentmenu"
@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_fragmentmenu_to_fragmentmenu1"
             app:destination="@id/fragmentmenu1" />
+        <action
+            android:id="@+id/action_fragmentmenu_to_fragment_flight_adding"
+            app:destination="@id/fragment_flight_adding" />
     </fragment>
     <fragment
         android:id="@+id/fragmentmenu1"
@@ -36,8 +39,8 @@
             android:id="@+id/action_fragmentRegister_to_fragmentmenu"
             app:destination="@id/fragmentmenu" />
         <action
-            android:id="@+id/action_fragmentRegister_to_change_password"
-            app:destination="@id/change_password" />
+            android:id="@+id/action_fragmentRegister_to_fragment_flight_adding"
+            app:destination="@id/fragment_flight_adding" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSignInOrRegister"
@@ -51,12 +54,24 @@
             app:destination="@id/fragmentmenu" />
     </fragment>
     <fragment
-        android:id="@+id/change_password"
-        android:name="com.example.tasimwithyouapp.change_password"
-        android:label="fragment_password_change"
-        tools:layout="@layout/fragment_password_change" >
+        android:id="@+id/fragment_flight_adding"
+        android:name="com.example.tasimwithyouapp.Fragment_flight_adding"
+        android:label="fragment_flight_adding"
+        tools:layout="@layout/fragment_flight_adding" >
         <action
-            android:id="@+id/action_change_password_to_fragmentmenu"
+            android:id="@+id/action_fragment_flight_adding_to_fragment_flight_details"
+            app:destination="@id/fragment_flight_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_flight_details"
+        android:name="com.example.tasimwithyouapp.Fragment_flight_details"
+        android:label="fragment_flight_details"
+        tools:layout="@layout/fragment_flight_details" >
+        <action
+            android:id="@+id/action_fragment_flight_details_to_fragmentmenu"
             app:destination="@id/fragmentmenu" />
+        <action
+            android:id="@+id/action_fragment_flight_details_to_fragment_flight_adding"
+            app:destination="@id/fragment_flight_adding" />
     </fragment>
 </navigation>

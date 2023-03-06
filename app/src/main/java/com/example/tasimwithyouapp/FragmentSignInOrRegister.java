@@ -62,7 +62,7 @@ public class FragmentSignInOrRegister extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_sign_in_or_register, container, false);
+     /*   View view= inflater.inflate(R.layout.fragment_sign_in_or_register, container, false);
         Button button1=view.findViewById(R.id.signInButton);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,9 +76,10 @@ public class FragmentSignInOrRegister extends Fragment {
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentRegister);
             }
-        });
+        });*/
 
-        return view;
+        return inflater.inflate(R.layout.fragment_sign_in_or_register, container, false);
+
     }
 
 

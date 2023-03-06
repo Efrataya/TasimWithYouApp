@@ -3,17 +3,20 @@ package com.example.tasimwithyouapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentHome2#newInstance} factory method to
+ * Use the {@link Fragment_flight_adding#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentHome2 extends Fragment {
+public class Fragment_flight_adding extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +27,7 @@ public class FragmentHome2 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentHome2() {
+    public Fragment_flight_adding() {
         // Required empty public constructor
     }
 
@@ -34,11 +37,11 @@ public class FragmentHome2 extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentHome2.
+     * @return A new instance of fragment Fragment_flight_adding.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentHome2 newInstance(String param1, String param2) {
-        FragmentHome2 fragment = new FragmentHome2();
+    public static Fragment_flight_adding newInstance(String param1, String param2) {
+        Fragment_flight_adding fragment = new Fragment_flight_adding();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +62,17 @@ public class FragmentHome2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home2, container, false);
+        View view= inflater.inflate(R.layout.fragment_flight_adding, container, false);
+        Button button1=view.findViewById(R.id.addFlightButton);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_fragment_flight_adding_to_fragment_flight_details);
+            }
+        });
+
+
+        return view;
+
     }
 }
