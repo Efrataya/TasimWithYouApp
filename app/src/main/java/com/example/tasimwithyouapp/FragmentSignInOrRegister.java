@@ -62,23 +62,24 @@ public class FragmentSignInOrRegister extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-     /*   View view= inflater.inflate(R.layout.fragment_sign_in_or_register, container, false);
-        Button button1=view.findViewById(R.id.signInButton);
+        View view= inflater.inflate(R.layout.fragment_sign_in_or_register, container, false);
+        /*Button button1=view.findViewById(R.id.signInButton);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentmenu);
             }
-        });
+        });*/
         TextView tv=view.findViewById(R.id.linkToRegister);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentRegister);
             }
-        });*/
+        });
 
-        return inflater.inflate(R.layout.fragment_sign_in_or_register, container, false);
+        ///return inflater.inflate(R.layout.fragment_sign_in_or_register, container, false);
+        return view;
 
     }
 

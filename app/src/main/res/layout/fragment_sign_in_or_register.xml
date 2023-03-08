@@ -104,7 +104,6 @@
             android:layout_marginTop="5sp"
             android:layout_weight="0.5"
             android:autoLink="web"
-            android:onClick="register"
             android:linksClickable="true"
             android:text="הרשמו כאן!"
             android:textColor="#3F51B5"

@@ -1,8 +1,9 @@
 package com.example.tasimwithyouapp;
 
-public class Flight {
+import java.io.Serializable;
 
-    private String id;
+public class Flight implements Serializable {
+
     private String userId;
     private String flightNumber;
     private String flightDate;
@@ -10,8 +11,7 @@ public class Flight {
     private String terminal;
 
 
-    public Flight(String id, String userId, String flightNumber, String flightDate, String flightDestination, String terminal) {
-        this.id = id;
+    public Flight(String userId, String flightNumber, String flightDate, String flightDestination, String terminal) {
         this.userId = userId;
         this.flightNumber = flightNumber;
         this.flightDate = flightDate;
@@ -20,14 +20,6 @@ public class Flight {
     }
 
     public Flight() {}
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
 
     public String getUserId() {
         return userId;

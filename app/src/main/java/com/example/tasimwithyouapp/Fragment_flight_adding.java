@@ -63,13 +63,13 @@ public class Fragment_flight_adding extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_flight_adding, container, false);
-        Button button1=view.findViewById(R.id.addFlightButton);
+        /*Button button1=view.findViewById(R.id.addFlightButton);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_fragment_flight_adding_to_fragment_flight_details);
             }
-        });
+        });*/
 
 
         return view;

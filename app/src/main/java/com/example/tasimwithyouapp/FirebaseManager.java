@@ -52,7 +52,7 @@ public class FirebaseManager {
                 .getReference("flights")
                 .child(userId)
                 .push();
-        flight.setId(reference.getKey());
+        flight.setFlightNumber(reference.getKey());
         reference.setValue(flight)
                 .addOnFailureListener(onFailure)
                 .addOnSuccessListener(onSuccess);
