@@ -364,4 +364,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }*/
+
+    public void userUpdateFunc(View view) {
+
+    }
+    public void flightUpdateFunc(View view) {
+
+    }
 }

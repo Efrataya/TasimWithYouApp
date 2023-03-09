@@ -11,18 +11,7 @@
        </KeyFrameSet>
     </Transition>
 
-    <ConstraintSet android:id="@+id/start">
-        <Constraint
-            motion:layout_constraintVertical_bias="1.0"
-            android:layout_height="488dp"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintHorizontal_bias="1.0"
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="427dp"
-            android:id="@+id/imageView" />
-    </ConstraintSet>
+    <ConstraintSet android:id="@+id/start"></ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
     </ConstraintSet>
