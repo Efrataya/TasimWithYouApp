@@ -1,5 +1,7 @@
 package com.example.tasimwithyouapp;
 
+import static com.example.tasimwithyouapp.R.id.yesThisIsMine;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,10 +15,10 @@ import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentSignInOrRegister#newInstance} factory method to
+ * Use the {@link Fragment_flight_details#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class  FragmentSignInOrRegister extends Fragment {
+public class Fragment_flight_details extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +29,7 @@ public class  FragmentSignInOrRegister extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentSignInOrRegister() {
+    public Fragment_flight_details() {
         // Required empty public constructor
     }
 
@@ -37,11 +39,11 @@ public class  FragmentSignInOrRegister extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentSignInOrRegister.
+     * @return A new instance of fragment Fragment_flight_details.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentSignInOrRegister newInstance(String param1, String param2) {
-        FragmentSignInOrRegister fragment = new FragmentSignInOrRegister();
+    public static Fragment_flight_details newInstance(String param1, String param2) {
+        Fragment_flight_details fragment = new Fragment_flight_details();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,26 +64,22 @@ public class  FragmentSignInOrRegister extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_sign_in_or_register, container, false);
-        /*Button button1=view.findViewById(R.id.signInButton);
+        View view= inflater.inflate(R.layout.fragment_flight_details, container, false);
+        Button button1=view.findViewById(R.id.yesThisIsMine);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_change_password_to_fragmentHome2);
+                Navigation.findNavController(view).navigate(R.id.action_fragment_flight_details_to_fragmentmenu);
             }
-        });*/
-        TextView tv=view.findViewById(R.id.linkToRegister);
+        });
+        TextView tv=view.findViewById(R.id.linkToAddFlight);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentRegister);
+                Navigation.findNavController(view).navigate(R.id.action_fragment_flight_details_to_fragment_flight_adding);
             }
         });
 
-        ///return inflater.inflate(R.layout.fragment_sign_in_or_register, container, false);
         return view;
-
     }
-
-
 }

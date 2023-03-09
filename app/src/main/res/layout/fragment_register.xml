@@ -21,7 +21,7 @@
             android:layout_marginTop="40sp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="רישום משתמש חדש"
+            android:text="הרשמה "
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="25sp" />
 
@@ -68,7 +68,7 @@
             android:hint="הרחוב שלך, מספר הבית ומספר הדירה" />
 
         <TextView
-            android:id="@+id/emailText"
+            android:id="@+id/datelText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -90,7 +90,7 @@
             android:hint="yourName@Example.com"/>
 
         <TextView
-            android:id="@+id/passwordText"
+            android:id="@+id/terminalText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -111,29 +111,8 @@
             android:textColorHint="#9F9E9E"
             android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/flightText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="bottom|right"
-            android:textSize="20sp"
-            android:text="מספר טיסה" />
-
-        <EditText
-            android:id="@+id/flightInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:textColorHint="#9F9E9E"
-            android:textSize="14sp"
-            android:gravity="right"
-            android:hint="מספר הטיסה מופיע בכרטיס הטיסה שלך"/>
-
         <Button
-            android:id="@+id/registerButton"
+            android:id="@+id/updateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15sp"

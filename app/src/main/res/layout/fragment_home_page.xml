@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img"
     android:orientation="vertical"
-    tools:context=".FragmentHomePage"/>
+    android:scrollbarSize="25sp"
+    tools:context=".FragmentHomePage" >
+
+    <Button
+        android:id="@+id/updateUserDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_button"
+        android:clickable="true"
+        android:onClick="userUpdateFunc"
+        android:text="עדכון פרטים" />
+
+    <Button
+        android:id="@+id/updateUserFlight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_button"
+        android:onClick="flightUpdateFunc"
+        android:text="החלפת טיסה" />
+
+</LinearLayout>

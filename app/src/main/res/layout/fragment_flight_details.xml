@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img"
+    android:orientation="vertical"
+    tools:context=".Fragment_flight_details">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30sp"
+        android:layoutDirection="rtl"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/entryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="זו הטיסה שהתכוונת?"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|right"
+            android:text="טיסה מספר:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/addressText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|right"
+            android:text="יעד:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/datelText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|right"
+            android:text="תאריך הטיסה:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/terminalText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom|right"
+            android:text="טרמינל:"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/yesThisIsMine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65sp"
+            android:layout_weight="0.2"
+            android:background="@drawable/my_button"
+            android:onClick="addFlightFunc"
+            android:text="כן, זו הטיסה שלי"
+            android:textColor="#FFFCFC"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/registerRef2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_weight="1"
+            android:gravity="bottom|right"
+            android:text="לא זו הטיסה שהתכוונת?"
+            android:textColor="#8C8A8A"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/linkToAddFlight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:layout_weight="1"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:onClick="register"
+            android:text="בואו ננסה שוב כאן!"
+            android:textColor="#3F51B5"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</LinearLayout>
