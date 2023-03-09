@@ -67,7 +67,7 @@ public class FragmentRegister extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_fragmentRegister_to_fragmentmenu);
+                Navigation.findNavController(view).navigate(R.id.action_fragmentRegister_to_fragmentHome2);
             }
         });
 

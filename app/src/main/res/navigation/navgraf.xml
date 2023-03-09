@@ -33,11 +33,17 @@
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_fragmentRegister_to_fragmentmenu"
-            app:destination="@id/fragmentmenu" />
-        <action
             android:id="@+id/action_fragmentRegister_to_change_password"
             app:destination="@id/change_password" />
+        <action
+            android:id="@+id/action_fragmentRegister_to_fragmentHome2"
+            app:destination="@id/fragmentHome2" />
+        <action
+            android:id="@+id/action_fragmentRegister_to_fragmentHome22"
+            app:destination="@id/fragmentHome2" />
+        <action
+            android:id="@+id/action_fragmentRegister_to_fragmentHome23"
+            app:destination="@id/fragmentHome2" />
     </fragment>
     <fragment
         android:id="@+id/fragmentSignInOrRegister"
@@ -46,9 +52,6 @@
         <action
             android:id="@+id/action_fragmentSignInOrRegister_to_fragmentRegister"
             app:destination="@id/fragmentRegister" />
-        <action
-            android:id="@+id/action_fragmentSignInOrRegister_to_fragmentmenu"
-            app:destination="@id/fragmentmenu" />
     </fragment>
     <fragment
         android:id="@+id/change_password"
@@ -56,7 +59,16 @@
         android:label="fragment_password_change"
         tools:layout="@layout/fragment_password_change" >
         <action
-            android:id="@+id/action_change_password_to_fragmentmenu"
+            android:id="@+id/action_change_password_to_fragmentHome2"
+            app:destination="@id/fragmentHome2" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentHome2"
+        android:name="com.example.tasimwithyouapp.FragmentHome2"
+        android:label="fragment_home2"
+        tools:layout="@layout/fragment_home2" >
+        <action
+            android:id="@+id/action_fragmentHome2_to_fragmentmenu"
             app:destination="@id/fragmentmenu" />
     </fragment>
 </navigation>
