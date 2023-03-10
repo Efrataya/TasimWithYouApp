@@ -67,7 +67,7 @@ public class FragmentSignInOrRegister extends Fragment {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentmenu);
+                Navigation.findNavController(view).navigate(R.id.action_change_password_to_fragmentHome2);
             }
         });*/
         TextView tv=view.findViewById(R.id.linkToRegister);

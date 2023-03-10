@@ -13,17 +13,21 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="337dp"
-        android:layout_height="102dp"
+        android:layout_width="318dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="142dp"
         android:fontFamily="sans-serif-black"
         android:text="מקום הנחיתה :צרפת "
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textDirection="rtl"
         android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.376"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="178dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.295" />
 
     <TextView
         android:id="@+id/textView3"
@@ -33,7 +37,7 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textDirection="rtl"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +75,7 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textDirection="rtl"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,8 +85,8 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="197dp"
-        android:layout_height="48dp"
+        android:layout_width="236dp"
+        android:layout_height="40dp"
         android:background="@drawable/menu2"
         android:backgroundTint="@android:color/transparent"
         android:elegantTextHeight="false"
@@ -103,13 +107,13 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="255dp"
+        android:layout_width="279dp"
         android:layout_height="36dp"
-        android:text="סוגע מטבע :אירו פרנק "
+        android:text="סוג מטבע :אירו פרנק "
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textDirection="rtl"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.384"
@@ -134,9 +138,11 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
