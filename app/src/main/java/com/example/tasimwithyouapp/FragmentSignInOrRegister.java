@@ -16,7 +16,7 @@ import android.widget.TextView;
  * Use the {@link FragmentSignInOrRegister#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class  FragmentSignInOrRegister extends Fragment {
+public class FragmentSignInOrRegister extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

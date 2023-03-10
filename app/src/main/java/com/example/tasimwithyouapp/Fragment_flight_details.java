@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Fragment_flight_details#newInstance} factory method to
@@ -65,13 +68,12 @@ public class Fragment_flight_details extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_flight_details, container, false);
-        Button button1=view.findViewById(R.id.yesThisIsMine);
+        /*Button button1=view.findViewById(R.id.yesThisIsMine);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_fragment_flight_details_to_fragmentmenu);
             }
-        });
+        });*/
         TextView tv=view.findViewById(R.id.linkToAddFlight);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +81,11 @@ public class Fragment_flight_details extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_fragment_flight_details_to_fragment_flight_adding);
             }
         });
+        if ((User.currentUser != null) && (Flight.temp != null)) {
+            Flight flight = Flight.temp;
+            TextView textView = view.findViewById(R.id.nameText);
+            textView.setText(textView.getText().toString() + " " + flight.getFlightNumber());
+        }
 
         return view;
     }

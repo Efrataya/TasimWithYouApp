@@ -1,22 +1,38 @@
 package com.example.tasimwithyouapp;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Flight implements Serializable {
+    static public Flight temp;
+    static private ArrayList<Flight> flights = new ArrayList<>();
+    static public void add(Flight flight) {
+        flights.add(flight);
+    }
+    static Flight getFlight(String flightNumber) {
+        for (Flight flight : flights) {
+            if (flight.getFlightNumber().equals(flightNumber)) {
+                return flight;
+            }
+        }
+        return null;
+    }
 
     private String userId;
     private String flightNumber;
     private String flightDate;
     private String flightDestination;
     private String terminal;
+    private String airline;
 
 
-    public Flight(String userId, String flightNumber, String flightDate, String flightDestination, String terminal) {
+    public Flight(String userId, String flightNumber, String flightDate, String flightDestination, String terminal, String airline) {
         this.userId = userId;
         this.flightNumber = flightNumber;
         this.flightDate = flightDate;
         this.flightDestination = flightDestination;
         this.terminal = terminal;
+        this.airline = airline;
     }
 
     public Flight() {}
@@ -54,12 +70,24 @@ public class Flight implements Serializable {
         return terminal;
     }
 
+    public String getAirline() {
+        return airline;
+    }
+
+    public void setAirline(String airline) {
+        this.airline = airline;
+    }
+
     public void setTerminal(String terminal) {
         this.terminal = terminal;
     }
-
     public void setFlightDestination(String flightDestination) {
         this.flightDestination = flightDestination;
+    }
 
+    @Override
+    public String toString() {
+        return "FN=" + flightNumber +
+                ", FD=" + flightDestination;
     }
 }
