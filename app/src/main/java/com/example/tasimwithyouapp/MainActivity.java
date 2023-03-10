@@ -6,13 +6,14 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,10 +35,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
+    int lastFlightNumber = 0;
     private FirebaseAuth mAuth;
     FragmentManager fragmentManager;
     FragmentContainerView fragmentContainerView;
@@ -49,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         fragmentContainerView = findViewById(R.id.fragmentContainerView);
         fragmentManager=getSupportFragmentManager();
+        readLastFlightNumber();
         readOrCreatePasswords();
-        ///readFlightsList();
-        readAllFlights();
+        readFlightsList();
        /* fragmentManager=getSupportFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         FragmentSignInOrRegister fragmentSignInOrRegister=new FragmentSignInOrRegister();
@@ -75,24 +77,44 @@ public class MainActivity extends AppCompatActivity {
         }).start();*/
     }
 
+    private void readLastFlightNumber() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("lastFlightNumber");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    lastFlightNumber = dataSnapshot.getValue(Integer.class);
+                }
+                catch (Exception e) {
+                    myRef.setValue(lastFlightNumber);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+    }
+
     private void readAllFlights() {
         String userId = mAuth.getUid();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("flights");
+        DatabaseReference myRef = database.getReference("flights").child(userId);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                User.currentUser.removeAllFlight();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Object v = postSnapshot.getValue();
                     Flight value = postSnapshot.getValue(Flight.class);
                     if (value.getUserId().equals(userId)) {
-                        ////
+                        User.currentUser.add(value);
                     }
                 }
-                /*Object obj = dataSnapshot.getValue(HashMap<String, Flight>.class);
-                Flight value = dataSnapshot.getValue(Flight.class);
-                value = null;*/
             }
 
             @Override
@@ -104,10 +126,15 @@ public class MainActivity extends AppCompatActivity {
 
     JSONObject obj;
     private void readFlightsList() {
-        new JsonTask().execute("https://earthquake.usgs.gov/fdsnws/event/1/application.json");
-        // tRsFQGsMQrR2
-        // https://earthquake.usgs.gov/fdsnws/event/1/[METHOD[?PARAMETERS]]
-        // https://earthquake.usgs.gov/fdsnws/event/1/application.json
+        ///new JsonTask().execute("https://earthquake.usgs.gov/fdsnws/event/1/application.json");
+        new JsonTask().execute("https://app.goflightlabs.com/advanced-flights-\n" +
+                "schedules?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiOWM4\n" +
+                "YTY5YTc0ZmZmMDU0YTIxZGE3Y2JlMzhjM2ZhMjhlOTM1ODBlNjAzMjQ5Z\n" +
+                "DA0MjhiYjg1NWFkYWU0ODIyMmJjNWJkNTRhNzJkZjZjZGMiLCJpYXQiOjE\n" +
+                "2NzgyOTc1NTcsIm5iZiI6MTY3ODI5NzU1NywiZXhwIjoxNzA5OTE5OTU3LCJ\n" +
+                "zdWIiOiIyMDM5MiIsInNjb3BlcyI6W119.HxPC3iXb6NYgJ3Xb6sBxIvMpRjg7Vf\n" +
+                "8w44vgKNNJ8jZzKrWp5farZWwlSqHI0Wfi1YGGq5hlwHAdNhrFA3w38g&iataCode=TLV&type=departure");
+
     }
     private class JsonTask extends AsyncTask<String, String, String> {
         ProgressDialog pd;
@@ -174,10 +201,25 @@ public class MainActivity extends AppCompatActivity {
                 pd.dismiss();
             }
             try {
+                if (result == null)
+                    return;
                 obj = new JSONObject(result);
-                JSONObject arr = obj.getJSONObject("catalogs");
-                obj = (JSONObject) obj.get("catalogs");
-                obj = null;
+                JSONArray arr = obj.getJSONArray("data");
+                int len = arr.length();
+                for (int i = 0; i < arr.length(); i++)
+                {
+                    JSONObject jsonObject = arr.getJSONObject(i).getJSONObject("flight");
+                    String flightNumber = jsonObject.getString("number");
+                    jsonObject = arr.getJSONObject(i).getJSONObject("airline");
+                    String airline = jsonObject.getString("name");
+                    jsonObject = arr.getJSONObject(i).getJSONObject("departure");
+                    String terminal = jsonObject.getString("terminal");
+                    String flightDate = jsonObject.getString("scheduledTime");
+                    jsonObject = arr.getJSONObject(i).getJSONObject("arrival");
+                    String flightDestination = jsonObject.getString("iataCode");
+                    Flight flight = new Flight("", flightNumber, flightDate, flightDestination, terminal, airline);
+                    Flight.add(flight);
+                }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -190,9 +232,18 @@ public class MainActivity extends AppCompatActivity {
 
     */
 
-    /*public void register(View view) {
-        fragmentContainerView.
-    }*/
+
+    public void showMyFlights(View view) {
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.show_flights_dialog);
+        dialog.setTitle("Title...");
+        ListView myNames = (ListView) dialog.findViewById(R.id.myFlightsList);
+        dialog.setCancelable(true);
+        ArrayAdapter<Flight> itemsAdapter =
+                new ArrayAdapter<Flight>(this, android.R.layout.simple_list_item_1, User.currentUser.allFlights());
+        myNames.setAdapter(itemsAdapter);
+        dialog.show();
+    }
     public void signFunc(View view) {
 
         EditText emailText = findViewById(R.id.emailInput);
@@ -246,6 +297,21 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    public void myFlightFunc(View view)throws Exception {
+        Flight flight = Flight.temp;
+        flight.setUserId(User.currentUser.id);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("flights").child(flight.getUserId()).child(String.valueOf(lastFlightNumber));
+        myRef.setValue(flight);
+        lastFlightNumber++;
+        myRef = database.getReference("lastFlightNumber");
+        myRef.setValue(lastFlightNumber);
+        User.currentUser.currentFlight = flight;
+        writeUser(User.currentUser);
+        User.currentUser.add(flight);
+        ///readAllFlights();
+        Navigation.findNavController(view).navigate(R.id.action_fragment_flight_details_to_fragmentmenu);
+    }
     public void addFlightFunc(View view)throws Exception {
         ///String id=createTransactionID();
         String userId = FirebaseAuth.getInstance().getUid();
@@ -254,20 +320,20 @@ public class MainActivity extends AppCompatActivity {
         EditText flightPasswordText = findViewById(R.id.flightPasswordInput);
         String fp = flightPasswordText.getText().toString();
         // check if flight number exist in json (to be done)
-
-        //check if password is correct
-        if(Passwords.passwordOK(fp)){
-            Flight f= new Flight(userId,fn,"24/03/2023 20:35","Russia","3");
-          //  FirebaseManager.addUserFlight(f);
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("flights").child(f.getUserId());
-            myRef.setValue(f);
-            User.currentUser.currentFlight = f;
-            writeUser(User.currentUser);
-            // Navigation.findNavController(view).navigate(R.id.action_fragment_flight_adding_to_fragment_flight_details);
+        Flight flight = Flight.getFlight(fn);
+        if (flight != null) {
+            //check if password is correct
+            if(Passwords.passwordOK(fp)){
+                Flight.temp = flight;
+                Navigation.findNavController(view).navigate(R.id.action_fragment_flight_adding_to_fragment_flight_details);
+            }
+            else
+                Toast.makeText(MainActivity.this, "wrong password!`", Toast.LENGTH_LONG).show();
         }
-        else
-            Toast.makeText(MainActivity.this, "wrong password!`", Toast.LENGTH_LONG).show();
+        else {
+            Toast.makeText(MainActivity.this, "flight not found!`", Toast.LENGTH_LONG).show();
+        }
+
     }
     public String createTransactionID() throws Exception{
         return UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
@@ -277,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
         EditText nameText = findViewById(R.id.nameInput);
         String name = nameText.getText().toString();
         EditText addressText = findViewById(R.id.addressInput);
-        String address = nameText.getText().toString();
+        String address = addressText.getText().toString();
         EditText emailText = findViewById(R.id.emailInput);
         String email = emailText.getText().toString();
         EditText passText = findViewById(R.id.passwordInput);
@@ -305,6 +371,7 @@ public class MainActivity extends AppCompatActivity {
                 User value = dataSnapshot.getValue(User.class);
                 Toast.makeText(MainActivity.this, value.name,Toast.LENGTH_LONG).show();
                 User.currentUser = value;
+                readAllFlights();
                 if (User.currentUser.currentFlight != null)
                     Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentHomePage);
                 else
@@ -364,11 +431,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }*/
-
-    public void userUpdateFunc(View view) {
-
-    }
-    public void flightUpdateFunc(View view) {
-
-    }
 }

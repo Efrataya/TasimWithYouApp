@@ -10,20 +10,10 @@
     tools:context=".FragmentHomePage" >
 
     <Button
-        android:id="@+id/updateUserDetails"
-        android:layout_width="match_parent"
+        android:id="@+id/button10"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/my_button"
-        android:clickable="true"
-        android:onClick="userUpdateFunc"
-        android:text="עדכון פרטים" />
-
-    <Button
-        android:id="@+id/updateUserFlight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/my_button"
-        android:onClick="flightUpdateFunc"
-        android:text="החלפת טיסה" />
-
+        android:onClick="showMyFlights"
+        android:text="my flights" />
 </LinearLayout>

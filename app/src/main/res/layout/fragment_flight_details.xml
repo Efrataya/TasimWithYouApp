@@ -68,7 +68,7 @@
             android:layout_marginTop="65sp"
             android:layout_weight="0.2"
             android:background="@drawable/my_button"
-            android:onClick="addFlightFunc"
+            android:onClick="myFlightFunc"
             android:text="כן, זו הטיסה שלי"
             android:textColor="#FFFCFC"
             android:textSize="20sp" />

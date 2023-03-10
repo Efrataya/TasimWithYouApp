@@ -25,7 +25,7 @@
     <TextView
         android:id="@+id/textView12"
         android:layout_width="match_parent"
-        android:layout_height="47dp"
+        android:layout_height="69dp"
         android:layout_weight="1"
         android:fontFamily="casual"
         android:text="מעטפת ליווי ותמיכה בדרך אל המטוס..."
