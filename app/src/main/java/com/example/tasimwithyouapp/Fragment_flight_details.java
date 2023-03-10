@@ -78,7 +78,8 @@ public class Fragment_flight_details extends Fragment {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_fragment_flight_details_to_fragment_flight_adding);
+                Navigation.findNavController(view)
+                        .navigate(R.id.action_fragment_flight_details_to_fragmentHome2);
             }
         });
         if ((User.currentUser != null) && (Flight.temp != null)) {

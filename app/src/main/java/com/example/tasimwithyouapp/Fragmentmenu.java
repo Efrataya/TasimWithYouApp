@@ -1,5 +1,6 @@
 package com.example.tasimwithyouapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -69,6 +70,14 @@ public class Fragmentmenu extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_fragmentmenu_to_fragmentmenu1);
             }
         });
+
+        Button buttonReminder =view.findViewById(R.id.fragmenuto2);
+        buttonReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_fragmentmenu_to_fragmentreminder);
+            }
+        });
         Button button2=view.findViewById(R.id.fragmenuto3);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +85,11 @@ public class Fragmentmenu extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_fragmentmenu_to_fragmentmenu3);
             }
         });
+
+        Button button3=view.findViewById(R.id.fragmenuto4);
+        button3.setOnClickListener(view1 -> startActivity(new Intent(getContext(),AirportDirections.class)));
+
+
 
         return view;
     }

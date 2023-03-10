@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.Passwords;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -36,6 +37,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -128,12 +130,11 @@ public class MainActivity extends AppCompatActivity {
     private void readFlightsList() {
         ///new JsonTask().execute("https://earthquake.usgs.gov/fdsnws/event/1/application.json");
         new JsonTask().execute("https://app.goflightlabs.com/advanced-flights-\n" +
-                "schedules?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiOWM4\n" +
-                "YTY5YTc0ZmZmMDU0YTIxZGE3Y2JlMzhjM2ZhMjhlOTM1ODBlNjAzMjQ5Z\n" +
-                "DA0MjhiYjg1NWFkYWU0ODIyMmJjNWJkNTRhNzJkZjZjZGMiLCJpYXQiOjE\n" +
-                "2NzgyOTc1NTcsIm5iZiI6MTY3ODI5NzU1NywiZXhwIjoxNzA5OTE5OTU3LCJ\n" +
-                "zdWIiOiIyMDM5MiIsInNjb3BlcyI6W119.HxPC3iXb6NYgJ3Xb6sBxIvMpRjg7Vf\n" +
-                "8w44vgKNNJ8jZzKrWp5farZWwlSqHI0Wfi1YGGq5hlwHAdNhrFA3w38g&iataCode=TLV&type=departure");
+                "schedules?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianR" +
+                "pIjoiOWY1OTM1NzI5ZmI3YTQwZGM0ZTAwMTAwYTk1OGY0OTljNjBmZjMwOTA0YWVjOGE0MWU0NDRhMj" +
+                "FhYjcyMTY1Yjg2YmNhNjhhYzhmYWM4MWYiLCJpYXQiOjE2Nzg0NTM3NzcsIm5iZiI6MTY3ODQ1Mzc3Ny" +
+                "wiZXhwIjoxNzEwMDc2MTc3LCJzdWIiOiIyMDQxNSIsInNjb3BlcyI6W119.ThIidFb2fdho-xw7a6bLBvf2" +
+                "oz3SEKvtt6ooxLSx41Ppsmg5R5mSHv_h5JDRpfywOa95c9rNLuScKvlK9Yh9jA&iataCode=TLV&type=departure");
 
     }
     private class JsonTask extends AsyncTask<String, String, String> {
@@ -217,11 +218,13 @@ public class MainActivity extends AppCompatActivity {
                     String flightDate = jsonObject.getString("scheduledTime");
                     jsonObject = arr.getJSONObject(i).getJSONObject("arrival");
                     String flightDestination = jsonObject.getString("iataCode");
-                    Flight flight = new Flight("", flightNumber, flightDate, flightDestination, terminal, airline);
+                    String flightArrival = jsonObject.getString("scheduledTime");
+                    System.out.println(flightArrival);
+                    Flight flight = new Flight("", flightNumber, flightDate,flightArrival, flightDestination, terminal, airline);
                     Flight.add(flight);
                 }
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }
@@ -312,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
         ///readAllFlights();
         Navigation.findNavController(view).navigate(R.id.action_fragment_flight_details_to_fragmentmenu);
     }
-    public void addFlightFunc(View view)throws Exception {
+    public void addFlightFunc(View view) throws Exception {
         ///String id=createTransactionID();
         String userId = FirebaseAuth.getInstance().getUid();
         EditText flightNumberText = findViewById(R.id.flightNumberInput);
@@ -349,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
         EditText passText = findViewById(R.id.passwordInput);
         String password = passText.getText().toString();
 
-        User user= new User(id,name,address,email,password);
+        User user = new User(id,name,address,email,password, new HashMap<>());
         User.currentUser = user;
         writeUser(user);
     }
@@ -363,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
    void read(View view){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users").child(mAuth.getUid());
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -373,7 +376,7 @@ public class MainActivity extends AppCompatActivity {
                 User.currentUser = value;
                 readAllFlights();
                 if (User.currentUser.currentFlight != null)
-                    Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentHomePage);
+                    Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentmenu);
                 else
                     Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragment_flight_adding);
             }
@@ -385,7 +388,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    void readOrCreatePasswords(){
+    void readOrCreatePasswords() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("passwords");
         myRef.addValueEventListener(new ValueEventListener() {

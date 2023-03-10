@@ -24,11 +24,13 @@ public class Flight implements Serializable {
     private String flightDestination;
     private String terminal;
     private String airline;
+    private String arrivalDate;
 
 
-    public Flight(String userId, String flightNumber, String flightDate, String flightDestination, String terminal, String airline) {
+    public Flight(String userId, String flightNumber, String flightDate,String arrivalDate, String flightDestination, String terminal, String airline) {
         this.userId = userId;
         this.flightNumber = flightNumber;
+        this.arrivalDate = arrivalDate;
         this.flightDate = flightDate;
         this.flightDestination = flightDestination;
         this.terminal = terminal;
@@ -36,6 +38,15 @@ public class Flight implements Serializable {
     }
 
     public Flight() {}
+
+
+    public String getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(String arrivalDate) {
+        this.arrivalDate = arrivalDate;
+    }
 
     public String getUserId() {
         return userId;

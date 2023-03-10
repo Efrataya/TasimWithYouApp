@@ -9,13 +9,17 @@
         android:id="@+id/fragmentmenu"
         android:name="com.example.tasimwithyouapp.Fragmentmenu"
         android:label="fragment_fragmentmenu"
-        tools:layout="@layout/fragment_fragmentmenu" >
+        tools:layout="@layout/fragment_fragmentmenu">
         <action
             android:id="@+id/action_fragmentmenu_to_fragmentmenu3"
             app:destination="@id/fragmentmenuto3" />
         <action
             android:id="@+id/action_fragmentmenu_to_fragmentmenu1"
             app:destination="@id/fragmentmenu1" />
+
+        <action
+            android:id="@+id/action_fragmentmenu_to_fragmentreminder"
+            app:destination="@id/choose_notitication" />
         <action
             android:id="@+id/action_fragmentmenu_to_fragment_flight_adding"
             app:destination="@id/fragment_flight_adding" />
@@ -34,7 +38,7 @@
         android:id="@+id/fragmentRegister"
         android:name="com.example.tasimwithyouapp.FragmentRegister"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_fragmentRegister_to_fragmentmenu"
             app:destination="@id/fragmentmenu" />
@@ -48,7 +52,7 @@
     <fragment
         android:id="@+id/fragmentSignInOrRegister"
         android:name="com.example.tasimwithyouapp.FragmentSignInOrRegister"
-        android:label="FragmentSignInOrRegister" >
+        android:label="FragmentSignInOrRegister">
         <action
             android:id="@+id/action_fragmentSignInOrRegister_to_fragmentRegister"
             app:destination="@id/fragmentRegister" />
@@ -56,17 +60,18 @@
             android:id="@+id/action_fragmentSignInOrRegister_to_fragmentmenu"
             app:destination="@id/fragmentmenu" />
         <action
-            android:id="@+id/action_fragmentSignInOrRegister_to_fragmentHomePage"
-            app:destination="@id/fragmentHomePage" />
+            android:id="@+id/action_fragmentSignInOrRegister_to_fragmentHomePage2"
+            app:destination="@id/fragmentHome2" />
         <action
             android:id="@+id/action_fragmentSignInOrRegister_to_fragment_flight_adding"
             app:destination="@id/fragment_flight_adding" />
+
     </fragment>
     <fragment
         android:id="@+id/fragment_flight_adding"
         android:name="com.example.tasimwithyouapp.Fragment_flight_adding"
         android:label="fragment_flight_adding"
-        tools:layout="@layout/fragment_flight_adding" >
+        tools:layout="@layout/fragment_flight_adding">
         <action
             android:id="@+id/action_fragment_flight_adding_to_fragment_flight_details"
             app:destination="@id/fragment_flight_details" />
@@ -75,13 +80,16 @@
         android:id="@+id/fragment_flight_details"
         android:name="com.example.tasimwithyouapp.Fragment_flight_details"
         android:label="fragment_flight_details"
-        tools:layout="@layout/fragment_flight_details" >
+        tools:layout="@layout/fragment_flight_details">
         <action
             android:id="@+id/action_fragment_flight_details_to_fragmentmenu"
             app:destination="@id/fragmentmenu" />
         <action
             android:id="@+id/action_fragment_flight_details_to_fragment_flight_adding"
             app:destination="@id/fragment_flight_adding" />
+        <action
+            android:id="@+id/action_fragment_flight_details_to_fragmentHome2"
+            app:destination="@id/fragmentHome2" />
     </fragment>
     <fragment
         android:id="@+id/fragmentHomePage"
@@ -92,9 +100,21 @@
         android:id="@+id/fragmentHome"
         android:name="com.example.tasimwithyouapp.FragmentHome"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_fragmentHome_to_fragmentSignInOrRegister"
             app:destination="@id/fragmentSignInOrRegister" />
     </fragment>
+
+    <fragment
+        android:id="@+id/fragmentHome2"
+        android:name="com.example.tasimwithyouapp.FragmentHome2"
+        android:label="fragment_home2"
+        tools:layout="@layout/fragment_home2"/>
+    <fragment
+        android:id="@+id/choose_notitication"
+        android:name="com.example.tasimwithyouapp.Choose_notitication"
+        android:label="fragment_choose_notitication"
+        tools:layout="@layout/fragment_choose_notitication" />
+
 </navigation>

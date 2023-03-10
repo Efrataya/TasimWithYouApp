@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@mipmap/back_r"
-    tools:context=".Choose_time_notification" >
+    android:gravity="center"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="בחירת מועד התראה : "
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="30dp"
         android:textStyle="bold"
@@ -25,53 +27,76 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/textView10"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_height="0dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView10">
 
-    <CheckBox
-        android:id="@+id/notification_1m"
-        android:layout_width="245dp"
-        android:layout_height="45dp"
-        android:text="דקה לפני הטיסה"
-        android:textColor="@color/black"
-        android:textSize="20dp" />
+        <CheckBox
+            android:id="@+id/notification_1m"
 
-    <CheckBox
-        android:id="@+id/notification_3h"
-        android:layout_width="245dp"
-        android:layout_height="45dp"
-        android:text="3 שעות לפני הטיסה"
-        android:textColor="@color/black"
-        android:textSize="20dp" />
+            android:layout_width="245dp"
+            android:layout_height="45dp"
+            android:layoutDirection="rtl"
+            android:text="דקה לפני הטיסה"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
 
-    <CheckBox
-        android:id="@+id/notification_5h"
-        android:layout_width="245dp"
-        android:layout_height="45dp"
-        android:text="5 שעות לפני הטיסה"
-        android:textColor="@color/black"
-        android:textSize="20dp" />
+        <CheckBox
+            android:id="@+id/notification_3h"
+            android:layout_width="245dp"
+            android:layout_height="45dp"
+            android:layoutDirection="rtl"
+            android:text="3 שעות לפני הטיסה"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
 
-    <CheckBox
-        android:id="@+id/notification_24h"
-        android:layout_width="245dp"
-        android:layout_height="45dp"
-        android:text="24 שעות לפני הטיסה"
-        android:textColor="@color/black"
-        android:textSize="20dp" />
+        <CheckBox
+            android:id="@+id/notification_5h"
 
-    <CheckBox
-        android:id="@+id/notification_other"
-        android:layout_width="245dp"
-        android:layout_height="wrap_content"
-        android:text="הוספת מועד אחר לבחירתך"
-        android:textColor="@color/black"
-        android:textSize="20dp" />
+            android:layout_width="245dp"
+            android:layout_height="45dp"
+            android:layoutDirection="rtl"
+            android:text="5 שעות לפני הטיסה"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <CheckBox
+            android:id="@+id/notification_24h"
+
+            android:layout_width="245dp"
+            android:layout_height="45dp"
+            android:layoutDirection="rtl"
+            android:text="24 שעות לפני הטיסה"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/notification_other"
+            android:layout_width="245dp"
+            android:layout_height="45dp"
+            android:text="בחר מועד אחר"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="מועדים מותאמים"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:padding="8dp"
+            android:id="@+id/otherTimesRv"
+            tools:listitem="@layout/custom_time_layout" />
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
