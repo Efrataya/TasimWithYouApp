@@ -7,7 +7,7 @@
     android:background="@drawable/img"
     android:orientation="vertical"
     android:scrollbarSize="25sp"
-    tools:context=".FragmentHomePage" >
+    tools:context=".fragments.home.FragmentHomePage" >
 
     <Button
         android:id="@+id/button10"

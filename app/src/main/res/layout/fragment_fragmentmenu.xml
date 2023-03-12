@@ -7,7 +7,7 @@
     android:background="@drawable/menu2"
     android:onClick="tosecedF"
     android:orientation="vertical"
-    tools:context=".Fragmentmenu">
+    tools:context=".fragments.menu.Fragmentmenu">
 
     <Button
         android:id="@+id/fragmenuto1"
@@ -26,10 +26,10 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@drawable/menu2"
+        android:drawableRight="@mipmap/mune2"
         android:onClick="toSecF"
         android:text="הפעלת התראות "
-        android:textSize="34sp"
-        android:drawableRight="@mipmap/mune2"/>
+        android:textSize="34sp" />
 
 
     <Button
@@ -37,9 +37,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:drawableRight="@mipmap/mune3"
         android:text="מידע על מקום הנחיתה"
-        android:textSize="34sp"
-        android:drawableRight="@mipmap/mune3"/>
+        android:textSize="34sp" />
 
 
     <Button
@@ -48,19 +48,19 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@drawable/menu2"
+        android:drawableRight="@mipmap/mune4"
         android:onClick="toThrF"
         android:text="ניווט בשדה התעופה"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="34sp"
-        android:drawableRight="@mipmap/mune4"/>
+        android:textSize="34sp" />
 
     <Button
         android:id="@+id/fragmenuto5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:drawableRight="@mipmap/mune5"
         android:text="תהליך עליה למטוס"
-        android:textSize="34sp"
-        android:drawableRight="@mipmap/mune5"/>
+        android:textSize="34sp" />
 
 </LinearLayout>

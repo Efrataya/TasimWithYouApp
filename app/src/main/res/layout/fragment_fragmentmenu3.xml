@@ -9,7 +9,7 @@
     android:textAlignment="center"
     android:textDirection="rtl"
     app:layoutDescription="@xml/fragment_fragmentmenu3_scene"
-    tools:context=".Fragmentmenu3" >
+    tools:context=".fragments.menu.Fragmentmenu3" >
 
     <TextView
         android:id="@+id/textView2"

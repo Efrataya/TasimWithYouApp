@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/img"
     android:scrollbarSize="25sp"
-    tools:context=".FragmentHome2">
+    tools:context=".fragments.home.FragmentHome2">
 
     <LinearLayout
         android:layout_width="match_parent"

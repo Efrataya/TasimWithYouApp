@@ -3,20 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/back_r"
     android:orientation="vertical"
     android:textAlignment="center"
     app:layoutDescription="@xml/fragment_home_scene"
-    tools:context=".FragmentHome">
+    tools:context=".fragments.home.FragmentHome">
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="417dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="70sp"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:fontFamily="casual"
         android:text="Tasim with you"
         android:textAlignment="center"
@@ -25,9 +24,10 @@
     <TextView
         android:id="@+id/textView12"
         android:layout_width="match_parent"
-        android:layout_height="69dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:fontFamily="casual"
+        android:gravity="center"
         android:text="מעטפת ליווי ותמיכה בדרך אל המטוס..."
         android:textAlignment="center"
         android:textSize="20sp" />
@@ -35,22 +35,23 @@
     <Button
         android:id="@+id/letsGoButton"
         android:layout_width="136dp"
-        android:layout_height="25dp"
-        android:layout_marginLeft="50sp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32sp"
         android:background="@drawable/my_button"
         android:clickable="true"
         android:fontFamily="casual"
+        android:maxHeight="30dp"
         android:text="נצא לדרך"
+        android:scaleY="0.7"
+        android:scaleX="0.75"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="24sp" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
-        android:layout_height="493dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:src="@drawable/man_in_airport" />
 
 </LinearLayout>

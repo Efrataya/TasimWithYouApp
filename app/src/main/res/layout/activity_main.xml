@@ -8,7 +8,7 @@
 
     android:background="@drawable/img"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
 
     <androidx.fragment.app.FragmentContainerView

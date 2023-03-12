@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentmenu"
-        android:name="com.example.tasimwithyouapp.Fragmentmenu"
+        android:name="com.example.tasimwithyouapp.fragments.menu.Fragmentmenu"
         android:label="fragment_fragmentmenu"
         tools:layout="@layout/fragment_fragmentmenu">
         <action
@@ -26,17 +26,17 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentmenu1"
-        android:name="com.example.tasimwithyouapp.Fragmentmenu1"
+        android:name="com.example.tasimwithyouapp.fragments.menu.Fragmentmenu1"
         android:label="fragment_fragmentmenu1"
         tools:layout="@layout/fragment_fragmentmenu1" />
     <fragment
         android:id="@+id/fragmentmenuto3"
-        android:name="com.example.tasimwithyouapp.Fragmentmenu3"
+        android:name="com.example.tasimwithyouapp.fragments.menu.Fragmentmenu3"
         android:label="fragment_fragmentmenu2"
         tools:layout="@layout/fragment_fragmentmenu3" />
     <fragment
         android:id="@+id/fragmentRegister"
-        android:name="com.example.tasimwithyouapp.FragmentRegister"
+        android:name="com.example.tasimwithyouapp.fragments.auth.FragmentRegister"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register">
         <action
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentSignInOrRegister"
-        android:name="com.example.tasimwithyouapp.FragmentSignInOrRegister"
+        android:name="com.example.tasimwithyouapp.fragments.auth.FragmentSignInOrRegister"
         android:label="FragmentSignInOrRegister">
         <action
             android:id="@+id/action_fragmentSignInOrRegister_to_fragmentRegister"
@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_flight_adding"
-        android:name="com.example.tasimwithyouapp.Fragment_flight_adding"
+        android:name="com.example.tasimwithyouapp.fragments.flight.Fragment_flight_adding"
         android:label="fragment_flight_adding"
         tools:layout="@layout/fragment_flight_adding">
         <action
@@ -78,7 +78,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_flight_details"
-        android:name="com.example.tasimwithyouapp.Fragment_flight_details"
+        android:name="com.example.tasimwithyouapp.fragments.flight.Fragment_flight_details"
         android:label="fragment_flight_details"
         tools:layout="@layout/fragment_flight_details">
         <action
@@ -93,12 +93,12 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentHomePage"
-        android:name="com.example.tasimwithyouapp.FragmentHomePage"
+        android:name="com.example.tasimwithyouapp.fragments.home.FragmentHomePage"
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" />
     <fragment
         android:id="@+id/fragmentHome"
-        android:name="com.example.tasimwithyouapp.FragmentHome"
+        android:name="com.example.tasimwithyouapp.fragments.home.FragmentHome"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -108,12 +108,12 @@
 
     <fragment
         android:id="@+id/fragmentHome2"
-        android:name="com.example.tasimwithyouapp.FragmentHome2"
+        android:name="com.example.tasimwithyouapp.fragments.home.FragmentHome2"
         android:label="fragment_home2"
         tools:layout="@layout/fragment_home2"/>
     <fragment
         android:id="@+id/choose_notitication"
-        android:name="com.example.tasimwithyouapp.Choose_notitication"
+        android:name="com.example.tasimwithyouapp.fragments.notifications.Choose_notitication"
         android:label="fragment_choose_notitication"
         tools:layout="@layout/fragment_choose_notitication" />
 
