@@ -22,6 +22,7 @@ import java.util.HashMap;
 
 public class MainActivity extends BaseActivity {
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,7 @@ public class MainActivity extends BaseActivity {
         mAuth = FirebaseAuth.getInstance();
         appViewModel.readFlightsList(this);
         appViewModel.scheduleNotifications(this);
+
     }
 
     public void showMyFlights(View view) {

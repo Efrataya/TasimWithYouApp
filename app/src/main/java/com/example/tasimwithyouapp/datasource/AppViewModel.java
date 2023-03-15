@@ -66,6 +66,8 @@ public class AppViewModel extends AndroidViewModel {
         attachPasswordsListener();
     }
 
+
+
     public int getLastFlightNumber() {
         if (lastFlightNumber.getValue() != null) return lastFlightNumber.getValue();
         return 0;
@@ -167,6 +169,11 @@ public class AppViewModel extends AndroidViewModel {
     }
 
     /*
+
+
+
+     */
+    /*
      * Flights api task
      */
     private AsyncTask<String, String, String> executeFlightsTask(Activity activity) {
@@ -212,6 +219,9 @@ public class AppViewModel extends AndroidViewModel {
      */
     private void attachPasswordsListener() {
         passwordsListener = FirebaseManager.passwordsListener(passwords, exceptions);
+        FirebaseDatabase.getInstance()
+                .getReference("passwords")
+                .addValueEventListener(passwordsListener);
     }
 
 
@@ -246,6 +256,21 @@ public class AppViewModel extends AndroidViewModel {
     }
 
 
+    private String getScheduleTypeHebrew(String type) {
+        switch (type) {
+            case "departure":
+                return "תזכורת לטיסה";
+            case "passport":
+                return "תזכורת לדרכון";
+            case "currency_exchange":
+                return "תזכורת להחלפת מטבע";
+            case "insurance":
+                return "תזכורת לביטוח";
+
+            default:
+                return "";
+        }
+    }
 
     /*
      * This method is called when the user is logged in and the app is opened.
@@ -257,7 +282,7 @@ public class AppViewModel extends AndroidViewModel {
             if (user == null || notificationsScheduled) return;
             List<ScheduledNotificationHandle> handles = new ArrayList<>();
             for (Map.Entry<String, List<Long>> entry : user.getAlerts().entrySet()) {
-                String someRandomMsg = entry.getKey() + "!";
+                String someRandomMsg = getScheduleTypeHebrew(entry.getKey()) + "!";
                 for (Long time : entry.getValue())
                     handles.add(
                             new ScheduledNotificationHandle(

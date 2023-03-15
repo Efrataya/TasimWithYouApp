@@ -104,6 +104,9 @@
         <action
             android:id="@+id/action_fragmentHome_to_fragmentSignInOrRegister"
             app:destination="@id/fragmentSignInOrRegister" />
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentHome2"
+            app:destination="@id/fragmentmenu" />
     </fragment>
 
     <fragment

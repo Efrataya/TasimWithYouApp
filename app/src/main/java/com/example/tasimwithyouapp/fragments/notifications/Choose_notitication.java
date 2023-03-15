@@ -32,7 +32,8 @@ public class Choose_notitication extends Fragment {
         if (activity == null) return;
         AppViewModel vm = activity.getAppViewModel();
         User copy = new User(vm.getUser());
-        ChooseScheduelingDialog dialog = new ChooseScheduelingDialog(getContext(), type,
+        ChooseScheduelingDialog dialog = new ChooseScheduelingDialog(
+                getContext(), type,
                 copy,
                 copy.currentFlight);
         dialog.show();

@@ -16,8 +16,9 @@ import com.example.tasimwithyouapp.models.User;
 import com.google.gson.Gson;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -35,20 +36,18 @@ public class NotificationHelper {
             User user,
             List<ScheduledNotificationHandle> scheduledNotificationHandles
     ) {
-        if (!checkNotificationsPermission(context))
+        if (!checkNotificationsPermission(context)) {
             return scheduledNotificationHandles;
-
+        }
         WorkManager workManager = WorkManager.getInstance(context);
         List<OneTimeWorkRequest> workRequests = new ArrayList<>();
         long date = LocalDateTime
                 .parse(user.currentFlight.getFlightDate())
-                .toInstant(ZoneOffset.UTC)
+                .toInstant(ZoneId.systemDefault().getRules().getOffset(LocalDateTime.now()))
                 .toEpochMilli();
-
         for (ScheduledNotificationHandle handle : scheduledNotificationHandles) {
             if (date - handle.getDate() <= 0) // if the notification date is in the past,
                 continue;
-
             String scheduledNotificationHandleJson = new Gson().toJson(handle);
             OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(NotificationWorker.class)
                     .setInputData(
@@ -56,7 +55,7 @@ public class NotificationHelper {
                                     .putString("scheduledNotificationHandle",
                                             scheduledNotificationHandleJson).build())
                     .setInitialDelay(
-                            Math.abs(date - handle.getDate()),
+                            Math.abs(System.currentTimeMillis() - (date - handle.getDate())),
                             TimeUnit.MILLISECONDS)
                     .build();
 
@@ -72,7 +71,7 @@ public class NotificationHelper {
                                                   ScheduledNotificationHandle scheduledNotificationHandle) {
         return new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Notification")
+                .setContentTitle("התראה!")
                 .setContentText(scheduledNotificationHandle.getMessage())
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)

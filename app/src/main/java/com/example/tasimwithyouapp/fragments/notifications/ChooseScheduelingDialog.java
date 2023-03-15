@@ -64,11 +64,10 @@ public class ChooseScheduelingDialog extends AlertDialog {
         CheckBox checkBox5h = view.findViewById(R.id.notification_5h);
         CheckBox checkBox24h = view.findViewById(R.id.notification_24h);
         TextView otherTimerHeader = view.findViewById(R.id.customNotificationHeader);
-
+        System.out.println(flight.getFlightDate());
         if (user.hasCustomNotification(scheduelingType)) {
             otherTimerHeader.setVisibility(View.VISIBLE);
         }
-
         RecyclerView otherTimesRecyclerView = view.findViewById(R.id.otherTimesRv);
         otherTimesRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         final int minute_milies = 60000;

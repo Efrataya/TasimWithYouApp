@@ -52,6 +52,7 @@ public class FirebaseManager {
                 // whenever data at this location is updated.
                 Passwords value = dataSnapshot.getValue(Passwords.class);
                 if ((value == null) || value.innerPasswords.isEmpty()) {
+                    System.out.println("Passwords are empty");
                     value = new Passwords();
                     Passwords.create(value);
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
