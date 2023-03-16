@@ -1,9 +1,13 @@
 package com.example.tasimwithyouapp.activities;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -30,8 +34,8 @@ public class MainActivity extends BaseActivity {
         mAuth = FirebaseAuth.getInstance();
         appViewModel.readFlightsList(this);
         appViewModel.scheduleNotifications(this);
-
     }
+
 
     public void showMyFlights(View view) {
         final Dialog dialog = new Dialog(MainActivity.this);
@@ -112,7 +116,7 @@ public class MainActivity extends BaseActivity {
         currentUser.currentFlight = flight;
         appViewModel.saveUser(currentUser);
         Navigation.findNavController(view)
-                .navigate(R.id.action_fragment_flight_details_to_fragmentmenu);
+                .navigate(R.id.action_fragment_flight_details_to_fragmentHome2);
     }
 
     public void addFlightFunc(View view) {
@@ -143,7 +147,13 @@ public class MainActivity extends BaseActivity {
         String email = emailText.getText().toString();
         EditText passText = findViewById(R.id.passwordInput);
         String password = passText.getText().toString();
-        User user = new User(id, name, address, email, password, new HashMap<>());
+        User user = new User(id,
+                name,
+                address,
+                email,
+                password,
+                new HashMap<>(),
+                new HashMap<>());
         appViewModel.saveUser(user);
     }
 
@@ -156,7 +166,7 @@ public class MainActivity extends BaseActivity {
         }
         Toast.makeText(MainActivity.this, "Hello ," + user.name, Toast.LENGTH_LONG).show();
         if (user.currentFlight != null)
-            Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentmenu);
+            Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentHomePage2);
         else
             Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragment_flight_adding);
     }

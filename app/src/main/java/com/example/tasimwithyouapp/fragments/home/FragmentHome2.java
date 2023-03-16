@@ -104,11 +104,15 @@ public class FragmentHome2 extends Fragment {
                     until_days = today.until(dateTime, ChronoUnit.MILLIS);
                     until_hours = today.until(dateTime, ChronoUnit.MILLIS);
                     until_minutes = today.until(dateTime, ChronoUnit.MILLIS);
-
+                    until_hours %= 24;
+                    until_minutes %= 60;
                     if (isPassed(until_days, until_hours, until_minutes)) {
                         until_days = today.until(arrivalTime, ChronoUnit.MILLIS);
                         until_hours = today.until(arrivalTime, ChronoUnit.MILLIS);
                         until_minutes = today.until(arrivalTime, ChronoUnit.MILLIS);
+                        until_hours %= 24;
+                        until_minutes %= 60;
+
                         editTextFlightStatus.setText("נחיתה בעוד:");
                         if (isPassed(until_days, until_hours, until_minutes)) {
                             editTextFlightStatus.setText("טיסה הושלמה בהצלחה");
@@ -118,6 +122,7 @@ public class FragmentHome2 extends Fragment {
                             return;
                         }
                     }
+
                     editTextDays.setText(getNormalTimeString(until_days + ""));
                     editTextHours.setText(getNormalTimeString(until_hours + ""));
                     editTextMinutes.setText(getNormalTimeString(until_minutes + ""));
@@ -130,14 +135,16 @@ public class FragmentHome2 extends Fragment {
                             until_days = today.until(dateTime, ChronoUnit.DAYS);
                             until_hours = today.until(dateTime, ChronoUnit.HOURS);
                             until_minutes = today.until(dateTime, ChronoUnit.MINUTES);
+                            until_hours %= 24;
+                            until_minutes %= 60;
+
                             if (isPassed(until_days, until_hours, until_minutes)) {
                                 until_days = today.until(arrivalTime, ChronoUnit.DAYS);
                                 until_hours = today.until(arrivalTime, ChronoUnit.HOURS);
                                 until_minutes = today.until(arrivalTime, ChronoUnit.MINUTES);
-
-                                editTextFlightStatus.setText("נחיתה בעוד:");
                                 until_hours %= 24;
                                 until_minutes %= 60;
+                                editTextFlightStatus.setText("נחיתה בעוד:");
 
                                 if (isPassed(until_days, until_hours, until_minutes)) {
                                     editTextFlightStatus.setText("טיסה הושלמה בהצלחה");

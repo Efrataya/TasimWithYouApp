@@ -35,6 +35,11 @@ public class Fragmentmenu extends Fragment {
         button3.setOnClickListener(view1 -> startActivity(new Intent(getContext(), AirportDirections.class)));
 
 
+        Button button5=view.findViewById(R.id.fragmenuto5);
+        button5.setOnClickListener(view1 ->
+                Navigation.findNavController(view1).navigate(R.id.action_fragmentmenu_to_map2));
+
+
         return view;
     }
 

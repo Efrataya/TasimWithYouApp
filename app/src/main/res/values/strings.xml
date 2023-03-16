@@ -22,5 +22,6 @@
     <string name="source">מקור</string>
     <string name="destination">יעד</string>
 <string name="apiKey">AIzaSyBJgCGmmX4vMmyrFF4XijHrlYd-wpEUT08</string>
+    <string name="back">חזרה למסך הראשי</string>
 
 </resources>

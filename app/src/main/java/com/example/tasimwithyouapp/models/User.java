@@ -9,8 +9,8 @@ public class User implements Serializable {
 
     private List<Flight> flights = new ArrayList<>();
 
-
     private HashMap<String, List<Long>> alerts = new HashMap<>();
+
     public String id;
     public String name;
     public String address;
@@ -18,13 +18,22 @@ public class User implements Serializable {
     public String password;
     public Flight currentFlight;
 
-    public User(String id, String name, String address, String email, String password, HashMap<String, List<Long>> alerts) {
+    private HashMap<String, StationStatus> stationStatus = new HashMap<>();
+
+    public User(String id,
+                String name,
+                String address,
+                String email,
+                String password,
+                HashMap<String, List<Long>> alerts,
+                HashMap<String, StationStatus> stationStatus) {
         this.id = id;
         this.name = name;
         this.alerts = alerts;
         this.address = address;
         this.email = email;
         this.password = password;
+        this.stationStatus = stationStatus;
     }
 
     public User(User other) {
@@ -35,8 +44,44 @@ public class User implements Serializable {
         this.password = other.password;
         this.currentFlight = other.currentFlight;
         this.alerts = new HashMap<>(other.alerts);
+        this.stationStatus = new HashMap<>(other.stationStatus);
     }
 
+
+    public HashMap<String, StationStatus> getStationStatus() {
+        return stationStatus;
+    }
+
+    public void setStationStatus(HashMap<String, StationStatus> stationStatus) {
+        this.stationStatus = stationStatus;
+    }
+
+    public void markStationComplete(String stationId) {
+        try {
+            String flightId = currentFlight.getFlightNumber();
+            if (!stationStatus.containsKey(currentFlight.getFlightNumber())) {
+                StationStatus status = new StationStatus();
+                status.addStationStatus(stationId, true);
+                stationStatus.put(flightId, status);
+                return;
+            }
+            stationStatus.get(flightId)
+                    .addStationStatus(stationId, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isStationComplete(String stationId) {
+        try {
+            if (currentFlight == null) return false;
+            String flightId = currentFlight.getFlightNumber();
+            return stationStatus.containsKey(flightId)
+                    && stationStatus.get(flightId).statusComplete(stationId);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public void addAlertTimes(ScheduelingType alertType, List<Long> alert) {
         alerts.put(alertType.getValue(), alert);

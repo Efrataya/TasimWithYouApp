@@ -12,11 +12,7 @@ import android.widget.TextView;
 
 import com.example.tasimwithyouapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentSignInOrRegister#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FragmentSignInOrRegister extends Fragment {
 
 

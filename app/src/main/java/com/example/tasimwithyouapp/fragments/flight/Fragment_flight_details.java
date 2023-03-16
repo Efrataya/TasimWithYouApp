@@ -14,6 +14,9 @@ import com.example.tasimwithyouapp.datasource.AppViewModel;
 import com.example.tasimwithyouapp.R;
 import com.example.tasimwithyouapp.activities.MainActivity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Fragment_flight_details extends Fragment {
 
     @Override
@@ -33,6 +36,14 @@ public class Fragment_flight_details extends Fragment {
             String flightNumber = textView.getText().toString()
                     + " " + vm.getTempRegisteredFlight().getFlightNumber();
             textView.setText(flightNumber);
+
+            TextView destination = view.findViewById(R.id.destText);
+            destination.setText(destination.getText().toString() + " " +  vm.getTempRegisteredFlight().getFlightDestination());
+            TextView date = view.findViewById(R.id.datelText);
+            date.setText(date.getText().toString() + " " +  DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
+                    .format(LocalDateTime.parse(vm.getTempRegisteredFlight().getFlightDate())));
+            TextView terminal = view.findViewById(R.id.terminalText);
+            terminal.setText(terminal.getText().toString() + " " + vm.getTempRegisteredFlight().getTerminal());
         }
         return view;
     }

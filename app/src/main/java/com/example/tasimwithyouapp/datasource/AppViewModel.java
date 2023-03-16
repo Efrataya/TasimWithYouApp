@@ -88,6 +88,22 @@ public class AppViewModel extends AndroidViewModel {
         return null;
     }
 
+
+    public boolean isStationComplete(Long stationId) {
+        User user = currentUser.getValue();
+        if (user == null)
+            return false;
+        return user.isStationComplete(String.valueOf(stationId));
+    }
+
+    public void markStationComplete(Long stationId) {
+        User user = currentUser.getValue();
+        if (user == null)
+            return;
+        user.markStationComplete("S" + stationId);
+        saveUser(user);
+    }
+
     public Flight getTempRegisteredFlight() {
         return tempRegisteredFlight;
     }
@@ -129,7 +145,7 @@ public class AppViewModel extends AndroidViewModel {
                     .getReference("users")
                     .child(FirebaseAuth.getInstance().getUid())
                     .removeEventListener(userListener);
-        if (flightsListener != null)
+        if (flightsListener != null && FirebaseAuth.getInstance().getUid() != null)
             FirebaseDatabase.getInstance()
                     .getReference("flights")
                     .child(FirebaseAuth.getInstance().getUid())
