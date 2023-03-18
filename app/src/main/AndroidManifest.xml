@@ -35,6 +35,11 @@
             android:name=".fragments.flight.AirportDirections"
             android:exported="true" />
 
+
+        <activity
+            android:name=".fragments.auth.FragmentUpateDetails"
+            android:exported="true" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

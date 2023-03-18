@@ -6,11 +6,9 @@ import android.app.NotificationManager;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.tasimwithyouapp.datasource.NotificationHelper;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class App extends Application {
-    public static final boolean isBeta = true;
+    public static final boolean isBeta = false;
     @Override
     public void onCreate() {
         super.onCreate();

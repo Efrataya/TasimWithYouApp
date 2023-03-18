@@ -76,7 +76,7 @@ public class map extends Fragment {
 
         if (model.isStationComplete(1L)) {
             button1.setEnabled(false);
-            button1.setBackgroundResource(R.drawable.baseline_location_on_24);
+            button1.setImageResource(R.drawable.baseline_location_on_24);
             button1.setOnClickListener(onStationComplete);
         } else {
             button1.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_map2_to_station1));
@@ -87,7 +87,7 @@ public class map extends Fragment {
 
         if (model.isStationComplete(2L)) {
             button2.setEnabled(false);
-            button2.setBackgroundResource(R.drawable.baseline_location_on_24);
+            button2.setImageResource(R.drawable.baseline_location_on_24);
             button2.setOnClickListener(onStationComplete);
         } else {
             button2.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.action_map2_to_station2));
@@ -97,7 +97,7 @@ public class map extends Fragment {
         ImageButton button3 = view.findViewById(R.id.st3);
         if (model.isStationComplete(3L)) {
             button3.setEnabled(false);
-            button3.setBackgroundResource(R.drawable.baseline_location_on_24);
+            button3.setImageResource(R.drawable.baseline_location_on_24);
             button3.setOnClickListener(onStationComplete);
         } else {
             button3.setOnClickListener(view13 -> Navigation.findNavController(view13).navigate(R.id.action_map2_to_station3));
@@ -107,7 +107,7 @@ public class map extends Fragment {
         ImageButton button4 = view.findViewById(R.id.st4);
         if (model.isStationComplete(4L)) {
             button4.setEnabled(false);
-            button4.setBackgroundResource(R.drawable.baseline_location_on_24);
+            button4.setImageResource(R.drawable.baseline_location_on_24);
             button4.setOnClickListener(onStationComplete);
         } else {
             button4.setOnClickListener(view14 -> Navigation.findNavController(view14).navigate(R.id.action_map2_to_station4));
@@ -116,7 +116,7 @@ public class map extends Fragment {
         ImageButton button5 = view.findViewById(R.id.st5);
         if (model.isStationComplete(5L)) {
             button5.setEnabled(false);
-            button5.setBackgroundResource(R.drawable.baseline_location_on_24);
+            button5.setImageResource(R.drawable.baseline_location_on_24);
             button5.setOnClickListener(onStationComplete);
         } else {
             button5.setOnClickListener(view15 -> Navigation.findNavController(view15).navigate(R.id.action_map2_to_station5));
@@ -127,7 +127,7 @@ public class map extends Fragment {
 
         if (model.isStationComplete(6L)) {
             button6.setEnabled(false);
-            button6.setBackgroundResource(R.drawable.baseline_location_on_24);
+            button6.setImageResource(R.drawable.baseline_location_on_24);
             button6.setOnClickListener(onStationComplete);
         } else {
             button6.setOnClickListener(view16 -> Navigation.findNavController(view16).navigate(R.id.action_map2_to_station6));
@@ -136,7 +136,7 @@ public class map extends Fragment {
         ImageButton button7 = view.findViewById(R.id.st7);
         if (model.isStationComplete(7L)) {
             button7.setEnabled(false);
-            button7.setBackgroundResource(R.drawable.baseline_location_on_24);
+            button7.setImageResource(R.drawable.baseline_location_on_24);
             button7.setOnClickListener(onStationComplete);
         } else {
             button7.setOnClickListener(view17 -> Navigation.findNavController(view17).navigate(R.id.action_map2_to_station7));

@@ -27,7 +27,7 @@ public class Fragment_flight_details extends Fragment {
 
         TextView tv = view.findViewById(R.id.linkToAddFlight);
         tv.setOnClickListener(view1 -> Navigation.findNavController(view1)
-                .navigate(R.id.action_fragment_flight_details_to_fragmentHome2));
+                .navigate(R.id.action_fragment_flight_details_to_fragment_flight_adding));
         MainActivity activity = (MainActivity) getActivity();
         if (activity == null) return view;
         AppViewModel vm = activity.getAppViewModel();

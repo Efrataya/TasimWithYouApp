@@ -4,12 +4,20 @@
     <item
         android:id="@+id/signOut"
         android:icon="@drawable/baseline_exit_to_app_24"
-        android:title="התנתק">
-    </item>
+        android:title="התנתק"/>
 
     <item
         android:id="@+id/fragmentmenu_btn"
         android:icon="@drawable/baseline_exit_to_app_24"
-        android:title="תפריט אפשרויות">
-    </item>
+        android:title="תפריט אפשרויות"/>
+
+    <item
+        android:id="@+id/fragmentupdate_btn"
+        android:icon="@drawable/baseline_exit_to_app_24"
+        android:title="עדכון פרטים"/>
+
+    <item
+        android:id="@+id/fragmentupdate_flight_btn"
+        android:icon="@drawable/baseline_exit_to_app_24"
+        android:title="עדכון טיסה"/>
 </menu>

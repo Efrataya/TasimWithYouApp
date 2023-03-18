@@ -30,6 +30,14 @@ public class FragmentSignInOrRegister extends Fragment {
             }
         });*/
         TextView tv=view.findViewById(R.id.linkToRegister);
+
+        TextView tv1 = view.findViewById(R.id.forgotPass);
+        tv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_change_password);
+            }
+        });
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

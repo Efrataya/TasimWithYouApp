@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 
 import com.example.tasimwithyouapp.R;
 import com.example.tasimwithyouapp.datasource.AppViewModel;
+import com.example.tasimwithyouapp.fragments.auth.FragmentUpateDetails;
 import com.google.firebase.auth.FirebaseAuth;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -52,6 +53,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                 Intent  i = new Intent(this, MainActivity.class);
                 i.putExtra("navigation",true);
                 i.putExtra("navigation_dest","menu");
+                startActivity(i);
+                return true;
+            case R.id.fragmentupdate_btn:
+                i = new Intent(this, FragmentUpateDetails.class);
                 startActivity(i);
                 return true;
         }

@@ -8,10 +8,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.tasimwithyouapp.datasource.AppViewModel;
 import com.example.tasimwithyouapp.R;
@@ -70,12 +72,48 @@ public class FragmentHome2 extends Fragment {
         return "";
     }
 
+    private long getTimeDiff(LocalDateTime time1, LocalDateTime time2) {
+        return ChronoUnit.HOURS.between(time1, time2);
+    }
+
+    private float getFractionWithRespectToTimeLeft(String departure, String arrival) {
+        LocalDateTime departureTime = LocalDateTime.parse(departure);
+        LocalDateTime arrivalTime = LocalDateTime.parse(arrival);
+        long timeDiff = getTimeDiff(departureTime, arrivalTime);
+        long timePassed = getTimeDiff(LocalDateTime.now(), departureTime);
+        return (float) timePassed / timeDiff;
+    }
+
+    // (int) (775 * 100 / currFraction)))
+    // currFraction = timePassed / totalTime
+    // timePassed = departureTime - currentTime
+    // totalTime = abs(departureTime - arrivalTime)
+
+    private float getPlanePosition(float currFraction) {
+        return (float) (775 / currFraction);
+    }
+
+    private void updatePlanePosition(View v) {
+        ImageView imageView9 = v.findViewById(R.id.imageView9);
+        float currFraction = getFractionWithRespectToTimeLeft(flight.getFlightDate(), flight.getArrivalDate());
+        float planePosition = getPlanePosition(currFraction);
+        imageView9.setX(planePosition);
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         AppCompatTextView editTextFlightStatus = view.findViewById(R.id.textView7);
         AppCompatTextView editTextFlightDepartureTime = view.findViewById(R.id.textView14);
+        AppCompatTextView editTextFlightArrivalTime = view.findViewById(R.id.textView15);
+        ImageView imageView9 = view.findViewById(R.id.imageView9);
+        int max = 775;
+
+        editTextFlightArrivalTime.setText(
+                LocalDateTime.parse(flight.getArrivalDate(),
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                        .format(DateTimeFormatter.ofPattern("HH:mm")));
         FirebaseDatabase.getInstance()
                 .getReference("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -83,15 +121,19 @@ public class FragmentHome2 extends Fragment {
                 .get()
                 .addOnSuccessListener(dataSnapshot -> {
                     flight = dataSnapshot.getValue(Flight.class);
+                    if (flight == null)
+                        return;
+
                     EditText editTextDays = view.findViewById(R.id.daysTv);
                     EditText editTextHours = view.findViewById(R.id.hoursTv);
                     EditText editTextMinutes = view.findViewById(R.id.minuteTv);
                     editTextFlightDepartureTime.setText(getHoursMinutesStringByLocale(Locale.forLanguageTag("IL"), LocalDateTime.parse(flight.getFlightDate())));
                     // format date
                     String dateStr = flight.getFlightDate();
+
                     String dateStrArrival = flight.getArrivalDate();
                     MainActivity act = (MainActivity) getActivity();
-                    if(act == null) return;
+                    if (act == null) return;
                     AppViewModel vm = act.getAppViewModel();
                     if (dateStrArrival == null || dateStrArrival.isEmpty()) {
                         flight = vm.getFlight(flight.getFlightNumber());
@@ -101,11 +143,13 @@ public class FragmentHome2 extends Fragment {
                     LocalDateTime arrivalTime = LocalDateTime.parse(dateStrArrival);
                     System.out.println(arrivalTime);
                     LocalDateTime today = LocalDateTime.now();
+
                     until_days = today.until(dateTime, ChronoUnit.MILLIS);
                     until_hours = today.until(dateTime, ChronoUnit.MILLIS);
                     until_minutes = today.until(dateTime, ChronoUnit.MILLIS);
                     until_hours %= 24;
                     until_minutes %= 60;
+
                     if (isPassed(until_days, until_hours, until_minutes)) {
                         until_days = today.until(arrivalTime, ChronoUnit.MILLIS);
                         until_hours = today.until(arrivalTime, ChronoUnit.MILLIS);
@@ -122,6 +166,7 @@ public class FragmentHome2 extends Fragment {
                             return;
                         }
                     }
+
 
                     editTextDays.setText(getNormalTimeString(until_days + ""));
                     editTextHours.setText(getNormalTimeString(until_hours + ""));

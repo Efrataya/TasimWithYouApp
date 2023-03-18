@@ -80,7 +80,10 @@ public class AppViewModel extends AndroidViewModel {
     }
 
     public Flight getFlight(String flightNumber) {
+        System.out.println("getFlight: " + flightNumber);
+        System.out.println("getFlight: " + getAllFlights().size());
         for (Flight flight : getAllFlights()) {
+
             if (flight.getFlightNumber().equals(flightNumber)) {
                 return flight;
             }

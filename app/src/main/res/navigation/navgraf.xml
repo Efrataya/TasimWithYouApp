@@ -55,7 +55,8 @@
     <fragment
         android:id="@+id/fragmentSignInOrRegister"
         android:name="com.example.tasimwithyouapp.fragments.auth.FragmentSignInOrRegister"
-        android:label="FragmentSignInOrRegister">
+        android:label="FragmentSignInOrRegister"
+        tools:layout="@layout/fragment_sign_in_or_register">
         <action
             android:id="@+id/action_fragmentSignInOrRegister_to_fragmentRegister"
             app:destination="@id/fragmentRegister" />
@@ -68,6 +69,9 @@
         <action
             android:id="@+id/action_fragmentSignInOrRegister_to_fragment_flight_adding"
             app:destination="@id/fragment_flight_adding" />
+        <action
+            android:id="@+id/action_fragmentSignInOrRegister_to_change_password"
+            app:destination="@id/change_password" />
 
     </fragment>
     <fragment
@@ -116,13 +120,14 @@
         <action
             android:id="@+id/action_fragmentHome_to_fragmentmenu"
             app:destination="@id/fragmentmenu" />
+
     </fragment>
 
     <fragment
         android:id="@+id/fragmentHome2"
         android:name="com.example.tasimwithyouapp.fragments.home.FragmentHome2"
         android:label="fragment_home2"
-        tools:layout="@layout/fragment_home2"/>
+        tools:layout="@layout/fragment_home2" />
     <fragment
         android:id="@+id/choose_notitication"
         android:name="com.example.tasimwithyouapp.fragments.notifications.Choose_notitication"
@@ -130,9 +135,9 @@
         tools:layout="@layout/fragment_choose_notitication" />
     <fragment
         android:id="@+id/map2"
-        tools:layout="@layout/fragment_map"
         android:name="com.example.tasimwithyouapp.hadas.map"
-        android:label="map" >
+        android:label="map"
+        tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_map2_to_station1"
             app:destination="@id/station1" />
@@ -157,9 +162,9 @@
     </fragment>
     <fragment
         android:id="@+id/station1"
-        tools:layout="@layout/fragment_station1"
         android:name="com.example.tasimwithyouapp.hadas.station1"
-        android:label="station1" >
+        android:label="station1"
+        tools:layout="@layout/fragment_station1">
         <action
             android:id="@+id/action_station1_to_station2"
             app:destination="@id/station2" />
@@ -171,7 +176,7 @@
         android:id="@+id/station2"
         android:name="com.example.tasimwithyouapp.hadas.station2"
         android:label="fragment_station2"
-        tools:layout="@layout/fragment_station2" >
+        tools:layout="@layout/fragment_station2">
         <action
             android:id="@+id/action_station2_to_station1"
             app:destination="@id/station1" />
@@ -186,7 +191,7 @@
         android:id="@+id/station3"
         android:name="com.example.tasimwithyouapp.hadas.station3"
         android:label="fragment_station3"
-        tools:layout="@layout/fragment_station3" >
+        tools:layout="@layout/fragment_station3">
         <action
             android:id="@+id/action_station3_to_station2"
             app:destination="@id/station2" />
@@ -201,7 +206,7 @@
         android:id="@+id/station4"
         android:name="com.example.tasimwithyouapp.hadas.station4"
         android:label="fragment_station4"
-        tools:layout="@layout/fragment_station4" >
+        tools:layout="@layout/fragment_station4">
         <action
             android:id="@+id/action_station4_to_station3"
             app:destination="@id/station3" />
@@ -216,7 +221,7 @@
         android:id="@+id/station5"
         android:name="com.example.tasimwithyouapp.hadas.station5"
         android:label="fragment_station5"
-        tools:layout="@layout/fragment_station5" >
+        tools:layout="@layout/fragment_station5">
         <action
             android:id="@+id/action_station5_to_station4"
             app:destination="@id/station4" />
@@ -231,7 +236,7 @@
         android:id="@+id/station6"
         android:name="com.example.tasimwithyouapp.hadas.station6"
         android:label="fragment_station6"
-        tools:layout="@layout/fragment_station6" >
+        tools:layout="@layout/fragment_station6">
         <action
             android:id="@+id/action_station6_to_station5"
             app:destination="@id/station5" />
@@ -246,7 +251,7 @@
         android:id="@+id/station7"
         android:name="com.example.tasimwithyouapp.hadas.station7"
         android:label="fragment_station7"
-        tools:layout="@layout/fragment_station7" >
+        tools:layout="@layout/fragment_station7">
         <action
             android:id="@+id/action_station7_to_station6"
             app:destination="@id/station6" />
@@ -254,5 +259,10 @@
             android:id="@+id/action_station7_to_map2"
             app:destination="@id/map2" />
     </fragment>
+    <fragment
+        android:id="@+id/change_password"
+        android:name="com.example.tasimwithyouapp.fragments.auth.change_password"
+        android:label="fragment_password_change"
+        tools:layout="@layout/fragment_password_change" />
 
 </navigation>

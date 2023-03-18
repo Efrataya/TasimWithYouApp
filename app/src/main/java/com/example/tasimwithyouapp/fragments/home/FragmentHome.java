@@ -54,6 +54,8 @@ public class FragmentHome extends Fragment {
                     NavHostFragment.findNavController(this)
                             .navigate(R.id.action_fragmentHome_to_fragmentmenu);
                     break;
+                case "update_details":
+                    break;
             }
             return view;
         }
