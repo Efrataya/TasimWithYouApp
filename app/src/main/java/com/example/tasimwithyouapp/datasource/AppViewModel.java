@@ -36,7 +36,7 @@ public class AppViewModel extends AndroidViewModel {
     private Flight tempRegisteredFlight;
 
     // flags to prevent multiple listeners from being attached
-    private boolean notificationsScheduled = false;
+    public static boolean notificationsScheduled = false;
     public boolean isListenerAttached;
 
     // Firebase listeners - to be removed on onCleared
@@ -53,7 +53,7 @@ public class AppViewModel extends AndroidViewModel {
     private final MutableLiveData<Passwords> passwords = new MutableLiveData<>();
     private final MutableLiveData<List<Flight>> userFlights = new MutableLiveData<>();
     private final MutableLiveData<List<Flight>> allFlights = new MutableLiveData<>();
-    private final MutableLiveData<User> currentUser = new MutableLiveData<>();
+    public final MutableLiveData<User> currentUser = new MutableLiveData<>();
     private final MutableLiveData<Integer> lastFlightNumber = new MutableLiveData<>(0);
     private final MutableLiveData<Exception> exceptions = new MutableLiveData<>();
 
@@ -65,7 +65,6 @@ public class AppViewModel extends AndroidViewModel {
         readLastFlightNumber();
         attachPasswordsListener();
     }
-
 
 
     public int getLastFlightNumber() {
@@ -198,11 +197,7 @@ public class AppViewModel extends AndroidViewModel {
     private AsyncTask<String, String, String> executeFlightsTask(Activity activity) {
         return new FlightsApiTask(activity, allFlights)
                 .execute("https://app.goflightlabs.com/advanced-flights-\n" +
-                        "schedules?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianR" +
-                        "pIjoiOWY1OTM1NzI5ZmI3YTQwZGM0ZTAwMTAwYTk1OGY0OTljNjBmZjMwOTA0YWVjOGE0MWU0NDRhMj" +
-                        "FhYjcyMTY1Yjg2YmNhNjhhYzhmYWM4MWYiLCJpYXQiOjE2Nzg0NTM3NzcsIm5iZiI6MTY3ODQ1Mzc3Ny" +
-                        "wiZXhwIjoxNzEwMDc2MTc3LCJzdWIiOiIyMDQxNSIsInNjb3BlcyI6W119.ThIidFb2fdho-xw7a6bLBvf2" +
-                        "oz3SEKvtt6ooxLSx41Ppsmg5R5mSHv_h5JDRpfywOa95c9rNLuScKvlK9Yh9jA&iataCode=TLV&type=departure");
+                        "schedules?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNzA0NzY5MGQ0MTc0ODBkZDZkZDlkMGMwYzBjMzlmNjdlZDc4ZGVmMzQyOGE3M2I1YmY3MmEwYzQxNzIzNjg2NzZhMmQyN2EyY2Q5ZGNmMjMiLCJpYXQiOjE2NzkxNTk0MzEsIm5iZiI6MTY3OTE1OTQzMSwiZXhwIjoxNzEwNzgxODMxLCJzdWIiOiIyMDUyMiIsInNjb3BlcyI6W119.oIF5-Oe4qtIJd2gmrdsYVHCx6PeKCtYB1F2CM3E6uQvLFAXV173G4VCODAnfCbBRHN08aJk3tQa7268D3RfsmQ&iataCode=TLV&type=departure");
     }
 
 
@@ -275,7 +270,7 @@ public class AppViewModel extends AndroidViewModel {
     }
 
 
-    private String getScheduleTypeHebrew(String type) {
+    public static String getScheduleTypeHebrew(String type) {
         switch (type) {
             case "departure":
                 return "תזכורת לטיסה";
@@ -289,6 +284,15 @@ public class AppViewModel extends AndroidViewModel {
             default:
                 return "";
         }
+    }
+
+
+    public void scheduleSingleNotification(BaseActivity activity,
+                                           ScheduledNotificationHandle handle) {
+        if (handle == null) return;
+        List<ScheduledNotificationHandle> handles = new ArrayList<>();
+        handles.add(handle);
+        NotificationHelper.scheduleNotifications(activity, getUser(), handles);
     }
 
     /*
@@ -316,6 +320,25 @@ public class AppViewModel extends AndroidViewModel {
             ob = null;
         };
         currentUser.observe(activity, ob);
+    }
+
+    public void scheduleNotifications(BaseActivity activity, User user) {
+        if (user == null) return;
+        List<ScheduledNotificationHandle> handles = new ArrayList<>();
+        for (Map.Entry<String, List<Long>> entry : user.getAlerts().entrySet()) {
+            String someRandomMsg = getScheduleTypeHebrew(entry.getKey()) + "!";
+            for (Long time : entry.getValue())
+                handles.add(
+                        new ScheduledNotificationHandle(
+                                time,
+                                someRandomMsg,
+                                ScheduelingType.fromString(entry.getKey()))
+                );
+        }
+        NotificationHelper.scheduleNotifications(activity, user, handles);
+        if (ob != null)
+            currentUser.removeObserver(ob);
+        notificationsScheduled = true;
     }
 
     public boolean passwordOK(String password) {

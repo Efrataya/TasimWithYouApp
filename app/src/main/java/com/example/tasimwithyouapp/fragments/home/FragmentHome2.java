@@ -1,5 +1,7 @@
 package com.example.tasimwithyouapp.fragments.home;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -7,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -14,11 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.tasimwithyouapp.datasource.AppViewModel;
 import com.example.tasimwithyouapp.R;
 import com.example.tasimwithyouapp.activities.MainActivity;
 import com.example.tasimwithyouapp.models.Flight;
+import com.example.tasimwithyouapp.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -46,7 +51,6 @@ public class FragmentHome2 extends Fragment {
     }
 
 
-    Flight flight;
     long until_days, until_hours, until_minutes;
 
     private static String getNormalTimeString(String time) {
@@ -72,116 +76,115 @@ public class FragmentHome2 extends Fragment {
         return "";
     }
 
-    private long getTimeDiff(LocalDateTime time1, LocalDateTime time2) {
-        return ChronoUnit.HOURS.between(time1, time2);
+    private float getTimeDiff(LocalDateTime time1, LocalDateTime time2) {
+        return ChronoUnit.MILLIS.between(time1, time2);
     }
 
     private float getFractionWithRespectToTimeLeft(String departure, String arrival) {
         LocalDateTime departureTime = LocalDateTime.parse(departure);
         LocalDateTime arrivalTime = LocalDateTime.parse(arrival);
-        long timeDiff = getTimeDiff(departureTime, arrivalTime);
-        long timePassed = getTimeDiff(LocalDateTime.now(), departureTime);
-        return (float) timePassed / timeDiff;
+        float timeDiff = getTimeDiff(departureTime, arrivalTime);
+        float timePassed = getTimeDiff(LocalDateTime.now(), departureTime);
+        float frac = (float) Math.abs(timePassed / timeDiff);
+        System.out.println(frac);
+        return frac;
     }
 
-    // (int) (775 * 100 / currFraction)))
-    // currFraction = timePassed / totalTime
-    // timePassed = departureTime - currentTime
-    // totalTime = abs(departureTime - arrivalTime)
 
-    private float getPlanePosition(float currFraction) {
-        return (float) (775 / currFraction);
-    }
-
-    private void updatePlanePosition(View v) {
+    private void updatePlanePosition(View v, Flight flight) {
         ImageView imageView9 = v.findViewById(R.id.imageView9);
-        float currFraction = getFractionWithRespectToTimeLeft(flight.getFlightDate(), flight.getArrivalDate());
-        float planePosition = getPlanePosition(currFraction);
-        imageView9.setX(planePosition);
+        float currFraction = getFractionWithRespectToTimeLeft(
+                flight.getFlightDate(),
+                flight.getArrivalDate());
+        // 775 is the max width of the plane
+        // * 10 so it would be faster
+        float pos = 775 * currFraction;
+        imageView9.setX(pos);
+    }
+
+    private Flight flight;
+
+    private void startTextViewGreetingAnimation(View v, int direction, boolean firstTime) {
+        v.animate()
+                .translationX(direction * 1000)
+                .setDuration((long) 10 * 1000)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(@NonNull Animator animator) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(@NonNull Animator animator) {
+                        v.setTranslationX(direction * -1000);
+                        startTextViewGreetingAnimation(v, direction,false);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(@NonNull Animator animator) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(@NonNull Animator animator) {
+                    }
+                })
+                .start();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        TextView textViewGreet = view.findViewById(R.id.textView8);
+        startTextViewGreetingAnimation(textViewGreet, -1,true);
         AppCompatTextView editTextFlightStatus = view.findViewById(R.id.textView7);
         AppCompatTextView editTextFlightDepartureTime = view.findViewById(R.id.textView14);
         AppCompatTextView editTextFlightArrivalTime = view.findViewById(R.id.textView15);
         ImageView imageView9 = view.findViewById(R.id.imageView9);
         int max = 775;
+        AppViewModel appViewModel = ((MainActivity) getActivity()).getAppViewModel();
+        appViewModel.currentUser.observe(getViewLifecycleOwner(), new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (flight != null) return;
+                flight = user.currentFlight;
+                if (flight == null) return;
+                editTextFlightArrivalTime.setText(
+                        LocalDateTime.parse(flight.getArrivalDate())
+                                .format(DateTimeFormatter.ofPattern("HH:mm")));
+                FirebaseDatabase.getInstance()
+                        .getReference("users")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("currentFlight")
+                        .get()
+                        .addOnSuccessListener(dataSnapshot -> {
+                            flight = dataSnapshot.getValue(Flight.class);
+                            if (flight == null)
+                                return;
 
-        editTextFlightArrivalTime.setText(
-                LocalDateTime.parse(flight.getArrivalDate(),
-                                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-                        .format(DateTimeFormatter.ofPattern("HH:mm")));
-        FirebaseDatabase.getInstance()
-                .getReference("users")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("currentFlight")
-                .get()
-                .addOnSuccessListener(dataSnapshot -> {
-                    flight = dataSnapshot.getValue(Flight.class);
-                    if (flight == null)
-                        return;
+                            EditText editTextDays = view.findViewById(R.id.daysTv);
+                            EditText editTextHours = view.findViewById(R.id.hoursTv);
+                            EditText editTextMinutes = view.findViewById(R.id.minuteTv);
+                            editTextFlightDepartureTime.setText(getHoursMinutesStringByLocale(Locale.forLanguageTag("IL"), LocalDateTime.parse(flight.getFlightDate())));
+                            // format date
+                            String dateStr = flight.getFlightDate();
 
-                    EditText editTextDays = view.findViewById(R.id.daysTv);
-                    EditText editTextHours = view.findViewById(R.id.hoursTv);
-                    EditText editTextMinutes = view.findViewById(R.id.minuteTv);
-                    editTextFlightDepartureTime.setText(getHoursMinutesStringByLocale(Locale.forLanguageTag("IL"), LocalDateTime.parse(flight.getFlightDate())));
-                    // format date
-                    String dateStr = flight.getFlightDate();
-
-                    String dateStrArrival = flight.getArrivalDate();
-                    MainActivity act = (MainActivity) getActivity();
-                    if (act == null) return;
-                    AppViewModel vm = act.getAppViewModel();
-                    if (dateStrArrival == null || dateStrArrival.isEmpty()) {
-                        flight = vm.getFlight(flight.getFlightNumber());
-                        dateStrArrival = flight.getArrivalDate();
-                    }
-                    LocalDateTime dateTime = LocalDateTime.parse(dateStr);
-                    LocalDateTime arrivalTime = LocalDateTime.parse(dateStrArrival);
-                    System.out.println(arrivalTime);
-                    LocalDateTime today = LocalDateTime.now();
-
-                    until_days = today.until(dateTime, ChronoUnit.MILLIS);
-                    until_hours = today.until(dateTime, ChronoUnit.MILLIS);
-                    until_minutes = today.until(dateTime, ChronoUnit.MILLIS);
-                    until_hours %= 24;
-                    until_minutes %= 60;
-
-                    if (isPassed(until_days, until_hours, until_minutes)) {
-                        until_days = today.until(arrivalTime, ChronoUnit.MILLIS);
-                        until_hours = today.until(arrivalTime, ChronoUnit.MILLIS);
-                        until_minutes = today.until(arrivalTime, ChronoUnit.MILLIS);
-                        until_hours %= 24;
-                        until_minutes %= 60;
-
-                        editTextFlightStatus.setText("נחיתה בעוד:");
-                        if (isPassed(until_days, until_hours, until_minutes)) {
-                            editTextFlightStatus.setText("טיסה הושלמה בהצלחה");
-                            editTextDays.setText("00");
-                            editTextHours.setText("00");
-                            editTextMinutes.setText("00");
-                            return;
-                        }
-                    }
-
-
-                    editTextDays.setText(getNormalTimeString(until_days + ""));
-                    editTextHours.setText(getNormalTimeString(until_hours + ""));
-                    editTextMinutes.setText(getNormalTimeString(until_minutes + ""));
-
-
-                    new Timer().scheduleAtFixedRate(new TimerTask() {
-                        @Override
-                        public void run() {
+                            String dateStrArrival = flight.getArrivalDate();
+                            MainActivity act = (MainActivity) getActivity();
+                            if (act == null) return;
+                            AppViewModel vm = act.getAppViewModel();
+                            if (dateStrArrival == null || dateStrArrival.isEmpty()) {
+                                flight = vm.getFlight(flight.getFlightNumber());
+                                dateStrArrival = flight.getArrivalDate();
+                            }
+                            LocalDateTime dateTime = LocalDateTime.parse(dateStr);
+                            LocalDateTime arrivalTime = LocalDateTime.parse(dateStrArrival);
                             LocalDateTime today = LocalDateTime.now();
+
                             until_days = today.until(dateTime, ChronoUnit.DAYS);
                             until_hours = today.until(dateTime, ChronoUnit.HOURS);
                             until_minutes = today.until(dateTime, ChronoUnit.MINUTES);
                             until_hours %= 24;
                             until_minutes %= 60;
+
 
                             if (isPassed(until_days, until_hours, until_minutes)) {
                                 until_days = today.until(arrivalTime, ChronoUnit.DAYS);
@@ -190,24 +193,59 @@ public class FragmentHome2 extends Fragment {
                                 until_hours %= 24;
                                 until_minutes %= 60;
                                 editTextFlightStatus.setText("נחיתה בעוד:");
-
                                 if (isPassed(until_days, until_hours, until_minutes)) {
                                     editTextFlightStatus.setText("טיסה הושלמה בהצלחה");
                                     editTextDays.setText("00");
                                     editTextHours.setText("00");
                                     editTextMinutes.setText("00");
+                                    return;
                                 }
                             }
 
-                            if (getActivity() == null) return;
-                            getActivity().runOnUiThread(() -> {
-                                editTextDays.setText(getNormalTimeString(until_days + ""));
-                                editTextHours.setText(getNormalTimeString(until_hours + ""));
-                                editTextMinutes.setText(getNormalTimeString(until_minutes + ""));
-                            });
-                        }
-                    }, 0, 1000);
-                });
+
+                            editTextDays.setText(getNormalTimeString(until_days + ""));
+                            editTextHours.setText(getNormalTimeString(until_hours + ""));
+                            editTextMinutes.setText(getNormalTimeString(until_minutes + ""));
+
+
+                            new Timer().scheduleAtFixedRate(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    LocalDateTime today = LocalDateTime.now();
+                                    until_days = today.until(dateTime, ChronoUnit.DAYS);
+                                    until_hours = today.until(dateTime, ChronoUnit.HOURS);
+                                    until_minutes = today.until(dateTime, ChronoUnit.MINUTES);
+                                    until_hours %= 24;
+                                    until_minutes %= 60;
+
+                                    if (isPassed(until_days, until_hours, until_minutes)) {
+                                        until_days = today.until(arrivalTime, ChronoUnit.DAYS);
+                                        until_hours = today.until(arrivalTime, ChronoUnit.HOURS);
+                                        until_minutes = today.until(arrivalTime, ChronoUnit.MINUTES);
+                                        until_hours %= 24;
+                                        until_minutes %= 60;
+                                        editTextFlightStatus.setText("נחיתה בעוד:");
+                                        updatePlanePosition(view, flight);
+
+                                        if (isPassed(until_days, until_hours, until_minutes)) {
+                                            editTextFlightStatus.setText("טיסה הושלמה בהצלחה");
+                                            editTextDays.setText("00");
+                                            editTextHours.setText("00");
+                                            editTextMinutes.setText("00");
+                                        }
+                                    }
+
+                                    if (getActivity() == null) return;
+                                    getActivity().runOnUiThread(() -> {
+                                        editTextDays.setText(getNormalTimeString(until_days + ""));
+                                        editTextHours.setText(getNormalTimeString(until_hours + ""));
+                                        editTextMinutes.setText(getNormalTimeString(until_minutes + ""));
+                                    });
+                                }
+                            }, 0, 1000);
+                        });
+            }
+        });
 
     }
 }

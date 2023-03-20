@@ -115,8 +115,8 @@ public class MainActivity extends BaseActivity {
         myRef.setValue(lastFlightNumber);
         currentUser.currentFlight = flight;
         appViewModel.saveUser(currentUser);
-        Navigation.findNavController(view)
-                .navigate(R.id.action_fragment_flight_details_to_fragmentHome2);
+        finish();
+        startActivity(getIntent());
     }
 
     public void addFlightFunc(View view) {

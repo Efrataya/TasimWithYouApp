@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -36,10 +37,13 @@ public class NotificationHelper {
             User user,
             List<ScheduledNotificationHandle> scheduledNotificationHandles
     ) {
+
         if (!checkNotificationsPermission(context)) {
+            System.out.println("[Error] No notification permissions");
             return scheduledNotificationHandles;
         }
         WorkManager workManager = WorkManager.getInstance(context);
+        workManager.cancelAllWork();
         List<OneTimeWorkRequest> workRequests = new ArrayList<>();
         long date = LocalDateTime
                 .parse(user.currentFlight.getFlightDate())
@@ -48,6 +52,10 @@ public class NotificationHelper {
         for (ScheduledNotificationHandle handle : scheduledNotificationHandles) {
             if (date - handle.getDate() <= 0) // if the notification date is in the past,
                 continue;
+            if(handle.getDate() - System.currentTimeMillis() < 0) {
+                System.out.println("Notification date is in the past, skipping");
+                continue;
+            }
             String scheduledNotificationHandleJson = new Gson().toJson(handle);
             OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(NotificationWorker.class)
                     .setInputData(
@@ -55,15 +63,17 @@ public class NotificationHelper {
                                     .putString("scheduledNotificationHandle",
                                             scheduledNotificationHandleJson).build())
                     .setInitialDelay(
-                            Math.abs(System.currentTimeMillis() - (date - handle.getDate())),
+                            handle.getDate() - System.currentTimeMillis(),
                             TimeUnit.MILLISECONDS)
                     .build();
 
             handle.setId(workRequest.getId());
             workRequests.add(workRequest);
+            System.out.println("[Info] Scheduled notification: " + handle.getMessage() + " at " + handle.getDate() + " with id " + handle.getId());
         }
         if (!workRequests.isEmpty())
             workManager.enqueue(workRequests);
+        System.out.println("[Info] " + workRequests.size() + " notifications scheduled");
         return scheduledNotificationHandles;
     }
 

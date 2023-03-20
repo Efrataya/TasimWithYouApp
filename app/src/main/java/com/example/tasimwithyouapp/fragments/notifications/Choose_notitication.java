@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.tasimwithyouapp.activities.BaseActivity;
 import com.example.tasimwithyouapp.datasource.AppViewModel;
 import com.example.tasimwithyouapp.R;
 import com.example.tasimwithyouapp.activities.MainActivity;
@@ -33,7 +34,9 @@ public class Choose_notitication extends Fragment {
         AppViewModel vm = activity.getAppViewModel();
         User copy = new User(vm.getUser());
         ChooseScheduelingDialog dialog = new ChooseScheduelingDialog(
-                getContext(), type,
+                (BaseActivity)getActivity(),
+                vm,
+                type,
                 copy,
                 copy.currentFlight);
         dialog.show();

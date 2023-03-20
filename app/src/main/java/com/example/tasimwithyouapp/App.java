@@ -8,7 +8,7 @@ import androidx.core.app.NotificationManagerCompat;
 import com.example.tasimwithyouapp.datasource.NotificationHelper;
 
 public class App extends Application {
-    public static final boolean isBeta = false;
+    public static final boolean isBeta = true;
     @Override
     public void onCreate() {
         super.onCreate();

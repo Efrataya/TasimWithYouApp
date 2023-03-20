@@ -35,15 +35,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView10">
 
-        <CheckBox
-            android:id="@+id/notification_1m"
-
-            android:layout_width="245dp"
-            android:layout_height="45dp"
-            android:layoutDirection="rtl"
-            android:text="דקה לפני הטיסה"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
 
         <CheckBox
             android:id="@+id/notification_3h"
@@ -53,6 +44,7 @@
             android:text="3 שעות לפני הטיסה"
             android:textColor="@color/black"
             android:textSize="20dp" />
+
 
         <CheckBox
             android:id="@+id/notification_5h"
@@ -74,6 +66,15 @@
             android:textColor="@color/black"
             android:textSize="20dp" />
 
+        <CheckBox
+            android:id="@+id/notification_2d"
+            android:layout_width="245dp"
+            android:layout_height="45dp"
+            android:layoutDirection="rtl"
+            android:text="יומיים  לפני הטיסה"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
         <Button
             android:id="@+id/notification_other"
             android:layout_width="245dp"
@@ -84,20 +85,20 @@
 
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/customNotificationHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="מועדים מותאמים"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/otherTimesRv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:padding="8dp"
-            android:id="@+id/otherTimesRv"
             tools:listitem="@layout/custom_time_layout" />
     </LinearLayout>
 
