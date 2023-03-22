@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layoutDirection="rtl"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="8dp"
+    android:backgroundTint="@color/purple_500"
+    android:orientation="vertical"
+    android:padding="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/flight_number_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="422"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/date_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="12/12/2020"
+            android:textAlignment="center"
+
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/airportCode_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OTP"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/chooseFlightCurrent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:text="בחר כטיסה נוכחית"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

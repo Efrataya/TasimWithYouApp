@@ -75,7 +75,8 @@ public class FragmentHome extends Fragment {
                                     .navigate(R.id.action_fragmentHome_to_fragment_flight_adding);
                         } else {
                             Flight f = dataSnapshot.getValue(Flight.class);
-                            if (f == null || LocalDateTime.parse(f.getArrivalDate()).plusDays(2).isBefore(LocalDateTime.now())) {
+                            if (f == null || LocalDateTime.parse(f.getArrivalDate())
+                                    .plusDays(2).isBefore(LocalDateTime.now())) {
                                 NavHostFragment.findNavController(FragmentHome.this)
                                         .navigate(R.id.action_fragmentHome_to_fragment_flight_adding);
                             } else {

@@ -1,6 +1,7 @@
 package com.example.tasimwithyouapp.activities;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 
 import android.app.Dialog;
@@ -15,9 +16,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.tasimwithyouapp.R;
+import com.example.tasimwithyouapp.models.CountryData;
 import com.example.tasimwithyouapp.models.Flight;
 import com.example.tasimwithyouapp.models.Passwords;
 import com.example.tasimwithyouapp.models.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,6 +38,7 @@ public class MainActivity extends BaseActivity {
         mAuth = FirebaseAuth.getInstance();
         appViewModel.readFlightsList(this);
         appViewModel.scheduleNotifications(this);
+
     }
 
 
@@ -63,10 +68,11 @@ public class MainActivity extends BaseActivity {
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful())
+                    if (task.isSuccessful()) {
                         read(view);
-                    else
-                        showToast("Cannot sign you in!");
+                    } else {
+                        showToast("cannot sign in!");
+                    }
                 });
     }
 
@@ -102,19 +108,8 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(MainActivity.this, "You are not signed in!`", Toast.LENGTH_LONG).show();
             return;
         }
-        int lastFlightNumber = appViewModel.getLastFlightNumber();
         flight.setUserId(currentUser.id);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database
-                .getReference("flights")
-                .child(flight.getUserId())
-                .child(String.valueOf(lastFlightNumber));
-        myRef.setValue(flight);
-        lastFlightNumber++;
-        myRef = database.getReference("lastFlightNumber");
-        myRef.setValue(lastFlightNumber);
-        currentUser.currentFlight = flight;
-        appViewModel.saveUser(currentUser);
+        currentUser.addFlight(flight);
         finish();
         startActivity(getIntent());
     }
@@ -159,16 +154,20 @@ public class MainActivity extends BaseActivity {
 
 
     void read(View view) {
-        User user = appViewModel.getUser();
-        if (user == null) {
-            Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragment_flight_adding);
-            return;
-        }
-        Toast.makeText(MainActivity.this, "Hello ," + user.name, Toast.LENGTH_LONG).show();
-        if (user.currentFlight != null)
-            Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentHomePage2);
-        else
-            Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragment_flight_adding);
+        appViewModel.currentUser.observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    appViewModel.currentUser.removeObserver(this);
+                    Toast.makeText(MainActivity.this, "Hello ," + user.name, Toast.LENGTH_LONG).show();
+                    if (user.currentFlight != null)
+                        Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragmentHomePage2);
+                    else
+                        Navigation.findNavController(view).navigate(R.id.action_fragmentSignInOrRegister_to_fragment_flight_adding);
+                }
+            }
+        });
+
     }
 
 

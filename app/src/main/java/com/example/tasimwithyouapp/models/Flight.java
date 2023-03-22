@@ -13,6 +13,7 @@ public class Flight implements Serializable {
     private String arrivalDate;
 
 
+
     public Flight(String userId, String flightNumber, String flightDate,String arrivalDate, String flightDestination, String terminal, String airline) {
         this.userId = userId;
         this.flightNumber = flightNumber;

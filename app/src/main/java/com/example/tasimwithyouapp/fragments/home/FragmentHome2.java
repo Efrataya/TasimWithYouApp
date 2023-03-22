@@ -22,10 +22,14 @@ import android.widget.TextView;
 import com.example.tasimwithyouapp.datasource.AppViewModel;
 import com.example.tasimwithyouapp.R;
 import com.example.tasimwithyouapp.activities.MainActivity;
+import com.example.tasimwithyouapp.models.CountryData;
 import com.example.tasimwithyouapp.models.Flight;
 import com.example.tasimwithyouapp.models.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -49,7 +53,6 @@ public class FragmentHome2 extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home2, container, false);
     }
-
 
     long until_days, until_hours, until_minutes;
 
@@ -90,15 +93,14 @@ public class FragmentHome2 extends Fragment {
         return frac;
     }
 
-
     private void updatePlanePosition(View v, Flight flight) {
         ImageView imageView9 = v.findViewById(R.id.imageView9);
         float currFraction = getFractionWithRespectToTimeLeft(
                 flight.getFlightDate(),
                 flight.getArrivalDate());
         // 775 is the max width of the plane
-        // * 10 so it would be faster
-        float pos = 775 * currFraction;
+        //  + 10 is the left margin
+        float pos = 10 + (775 * currFraction);
         imageView9.setX(pos);
     }
 
@@ -111,12 +113,13 @@ public class FragmentHome2 extends Fragment {
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(@NonNull Animator animator) {
+
                     }
 
                     @Override
                     public void onAnimationEnd(@NonNull Animator animator) {
                         v.setTranslationX(direction * -1000);
-                        startTextViewGreetingAnimation(v, direction,false);
+                        startTextViewGreetingAnimation(v, direction, false);
                     }
 
                     @Override
@@ -130,16 +133,39 @@ public class FragmentHome2 extends Fragment {
                 .start();
     }
 
+    private void loadCountryData(Flight flight, ImageView imageView,TextView destTv) {
+        CountryData.asyncFromJson(getActivity(),
+                flight.getFlightDestination(),
+                new OnSuccessListener<CountryData>() {
+                    @Override
+                    public void onSuccess(CountryData countryData) {
+                        System.out.println("Country data loaded");
+                        if (getActivity() != null)
+                            getActivity().runOnUiThread(() -> {
+                                destTv.setText(countryData.getName().getCommon());
+                                Picasso.get().load(countryData.getFlags().getPng()).into(imageView);
+                                System.out.println(countryData.getFlags().getPng());
+                            });
+                    }
+                }, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.out.println("Country data failed to load");
+                        System.out.println(e.getMessage());
+                    }
+                });
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView textViewGreet = view.findViewById(R.id.textView8);
-        startTextViewGreetingAnimation(textViewGreet, -1,true);
+        startTextViewGreetingAnimation(textViewGreet, -1, true);
         AppCompatTextView editTextFlightStatus = view.findViewById(R.id.textView7);
         AppCompatTextView editTextFlightDepartureTime = view.findViewById(R.id.textView14);
         AppCompatTextView editTextFlightArrivalTime = view.findViewById(R.id.textView15);
-        ImageView imageView9 = view.findViewById(R.id.imageView9);
-        int max = 775;
+
+        ImageView imageView = view.findViewById(R.id.imageView8);
         AppViewModel appViewModel = ((MainActivity) getActivity()).getAppViewModel();
         appViewModel.currentUser.observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
@@ -147,6 +173,7 @@ public class FragmentHome2 extends Fragment {
                 if (flight != null) return;
                 flight = user.currentFlight;
                 if (flight == null) return;
+                loadCountryData(flight, imageView,(TextView) view.findViewById(R.id.textView13));
                 editTextFlightArrivalTime.setText(
                         LocalDateTime.parse(flight.getArrivalDate())
                                 .format(DateTimeFormatter.ofPattern("HH:mm")));
@@ -195,9 +222,13 @@ public class FragmentHome2 extends Fragment {
                                 editTextFlightStatus.setText("נחיתה בעוד:");
                                 if (isPassed(until_days, until_hours, until_minutes)) {
                                     editTextFlightStatus.setText("טיסה הושלמה בהצלחה");
+                                    view.findViewById(R.id.endFlight)
+                                            .setVisibility(View.VISIBLE);
                                     editTextDays.setText("00");
                                     editTextHours.setText("00");
                                     editTextMinutes.setText("00");
+                                    textViewGreet.setText("תודה שבחרתם אותנו");
+
                                     return;
                                 }
                             }

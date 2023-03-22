@@ -24,7 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+/*
 
+
+ */
 
 // The MainActivity owns a copy of viewModel
 // Other classes can also access this copy by calling getAppViewModel()
@@ -66,9 +69,9 @@ public class AppViewModel extends AndroidViewModel {
         attachPasswordsListener();
     }
 
-
     public int getLastFlightNumber() {
-        if (lastFlightNumber.getValue() != null) return lastFlightNumber.getValue();
+        if (lastFlightNumber.getValue() != null)
+            return lastFlightNumber.getValue();
         return 0;
     }
 
@@ -82,7 +85,6 @@ public class AppViewModel extends AndroidViewModel {
         System.out.println("getFlight: " + flightNumber);
         System.out.println("getFlight: " + getAllFlights().size());
         for (Flight flight : getAllFlights()) {
-
             if (flight.getFlightNumber().equals(flightNumber)) {
                 return flight;
             }
@@ -90,6 +92,30 @@ public class AppViewModel extends AndroidViewModel {
         return null;
     }
 
+
+    public void changeCurrentFlight(String flightNumber) {
+        User user = currentUser.getValue();
+        if (user == null)
+            return;
+        user.changeCurrentFlight(flightNumber);
+        saveUser(user);
+    }
+
+    public void addFlight(Flight flight) {
+        User user = currentUser.getValue();
+        if (user == null)
+            return;
+        user.addFlight(flight);
+        changeCurrentFlight(flight.getFlightNumber());
+    }
+
+    public void removeFlight(String flightNumber) {
+        User user = currentUser.getValue();
+        if (user == null)
+            return;
+        user.removeFlight(flightNumber);
+        saveUser(user);
+    }
 
     public boolean isStationComplete(Long stationId) {
         User user = currentUser.getValue();

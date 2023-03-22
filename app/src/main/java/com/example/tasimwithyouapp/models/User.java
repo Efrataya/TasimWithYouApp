@@ -7,7 +7,7 @@ import java.util.List;
 
 public class User implements Serializable {
 
-    private List<Flight> flights = new ArrayList<>();
+    private HashMap<String, Flight> flights = new HashMap<>();
 
     private HashMap<String, List<Long>> alerts = new HashMap<>();
 
@@ -132,15 +132,24 @@ public class User implements Serializable {
     public User() {
     }
 
-    public void add(Flight flight) {
-        flights.add(flight);
+    public void addFlight(Flight flight) {
+        flights.put(flight.getFlightNumber(), flight);
+    }
+
+    public void removeFlight(String flightNumber) {
+        flights.remove(flightNumber);
     }
 
     public void removeAllFlight() {
         flights.clear();
     }
 
-    public List<Flight> allFlights() {
+    public void changeCurrentFlight(String flightNumber) {
+        currentFlight = flights.get(flightNumber);
+    }
+
+
+    public HashMap<String, Flight> getFlights() {
         return flights;
     }
 

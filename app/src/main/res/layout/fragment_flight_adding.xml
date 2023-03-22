@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img"
     android:orientation="vertical"
-    tools:context=".fragments.flight.Fragment_flight_adding" >
+    tools:context=".fragments.flight.Fragment_flight_adding">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60sp"
-            android:layout_weight="1"
             android:text="הוסף את טיסתך למערכת ו... יוצאים לדרך!"
             android:textAlignment="center"
             android:textSize="30sp" />
@@ -27,7 +27,6 @@
             android:id="@+id/flightText4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="bottom|right"
             android:text="מספר טיסה"
             android:textSize="20sp" />
@@ -36,7 +35,6 @@
             android:id="@+id/flightNumberInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:ems="10"
             android:gravity="right"
             android:hint="מספר הטיסה מופיע בכרטיס הטיסה שלך"
@@ -48,7 +46,6 @@
             android:id="@+id/flightText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="bottom|right"
             android:text="סיסמת טיסה"
             android:textSize="20sp" />
@@ -57,7 +54,6 @@
             android:id="@+id/flightPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:ems="10"
             android:gravity="right"
             android:hint="הסיסמא שקיבלת מחברת התעופה למייל שלך "
@@ -69,14 +65,33 @@
             android:id="@+id/addFlightButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50sp"
-            android:layout_marginBottom="50sp"
-            android:layout_weight="1"
+            android:layout_marginTop="8dp"
             android:background="@drawable/my_button"
             android:onClick="addFlightFunc"
             android:text="הוספה"
             android:textColor="#FFFCFC"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/flightText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="הטיסות שלי"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/flightsRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
 
     </LinearLayout>
 </LinearLayout>
