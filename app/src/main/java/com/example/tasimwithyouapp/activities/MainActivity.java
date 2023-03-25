@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity {
             return;
         }
         flight.setUserId(currentUser.id);
-        currentUser.addFlight(flight);
+        appViewModel.addFlight(flight);
         finish();
         startActivity(getIntent());
     }

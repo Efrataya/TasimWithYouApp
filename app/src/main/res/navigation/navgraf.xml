@@ -82,6 +82,9 @@
         <action
             android:id="@+id/action_fragment_flight_adding_to_fragment_flight_details"
             app:destination="@id/fragment_flight_details" />
+        <action
+            android:id="@+id/action_fragment_flight_adding_to_fragment_home2"
+            app:destination="@id/fragmentHome2" />
     </fragment>
     <fragment
         android:id="@+id/fragment_flight_details"

@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.tasimwithyouapp.R;
+import com.example.tasimwithyouapp.activities.MainActivity;
+import com.example.tasimwithyouapp.datasource.AppViewModel;
 
 public class Fragment_flight_adding extends Fragment {
 
@@ -19,9 +21,6 @@ public class Fragment_flight_adding extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_flight_adding, container, false);
-
-
     }
-
 
 }
